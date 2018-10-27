@@ -3,6 +3,7 @@
 ## Game
 
 **Title:** ???  
+**Technology:** JavaScript, Phaser3  
 **Similar games:** Pokémon Emerald, ...  
 
 **Examples:**  

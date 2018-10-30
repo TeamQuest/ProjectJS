@@ -1,5 +1,5 @@
 ---
-name: Task
+name: New task
 about: Task template
 
 ---

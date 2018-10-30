@@ -11,6 +11,7 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
+let controls;
 
 function drawColliders(ref, layer) {
     const debugGraphics = ref.add.graphics().setAlpha(0.75);
@@ -41,11 +42,30 @@ function create()
     // Set up collision for tiles with property `collides`
     world_l.setCollisionByProperty({ collides: true });
 
-    // DEBUG: draw collision bounds
+    // DEBUG: Draw collision bounds
     drawColliders(this, world_l);
+
+    // Main camera
+    const camera = this.cameras.main;
+    camera.setZoom(2);
+    // Constrain camera with world bounds
+    camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+
+    // DEBUG: Allow camera control with arrow keys
+    const cursors = this.input.keyboard.createCursorKeys();
+    controls = new Phaser.Cameras.Controls.FixedKeyControl({
+        camera: camera,
+        left: cursors.left,
+        right: cursors.right,
+        up: cursors.up,
+        down: cursors.down,
+        speed: 0.1
+    });
 }
 
-function update()
+function update(time, delta)
 {
+    // Update camera movement
+    controls.update(delta)
 }
 

@@ -1,6 +1,6 @@
 ---
 name: New task
-about: Task template
+about: Issue for tasks
 
 ---
 

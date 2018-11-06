@@ -4,7 +4,7 @@ const config = {
     width: 800,
     height: 600,
     physics: {
-        default: "arcade",
+        default: 'arcade',
         arcade: {
             gravity: { x: 0, y: 0 },
         }
@@ -43,20 +43,20 @@ function create() {
     const map = this.make.tilemap({ key: 'map' });
     const tileset = map.addTilesetImage('bvtiles', 'tiles');
     // Tile layers under the character
-    const walkable_l = map.createStaticLayer('walkable', tileset, 0, 0);
-    const world_l = map.createStaticLayer('world', tileset, 0, 0);
+    const walkableLayer = map.createStaticLayer('walkable', tileset, 0, 0);
+    const worldLayer = map.createStaticLayer('world', tileset, 0, 0);
     // Set up collision for tiles with property `collides`
-    world_l.setCollisionByProperty({ collides: true });
+    worldLayer.setCollisionByProperty({ collides: true });
     // Player initialization
     player = new Character('Unknown');
     player.attachSprite(this.physics.add.sprite(256, 112, 'white'));
     player.setController(this.input.keyboard.createCursorKeys());
-    this.physics.add.collider(player.sprite, world_l);
+    this.physics.add.collider(player.sprite, worldLayer);
     // Tile layer above the character
-    const above_l = map.createStaticLayer('above', tileset, 0, 0);
+    const aboveLayer = map.createStaticLayer('above', tileset, 0, 0);
 
     // DEBUG: draw collision bounds
-    drawColliders(this, world_l);
+    drawColliders(this, worldLayer);
 }
 
 function update() {

@@ -1,7 +1,14 @@
 const config = {
     type: Phaser.AUTO,
+    title: 'ProjectJS',
     width: 800,
     height: 600,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { x: 0, y: 0 },
+        }
+    },
     pixelArt: true,
     scene: {
         preload: preload,
@@ -11,6 +18,7 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
+let player;
 
 function drawColliders(ref, layer) {
     const debugGraphics = ref.add.graphics().setAlpha(0.75);
@@ -21,8 +29,8 @@ function drawColliders(ref, layer) {
     });
 }
 
-function preload()
-{
+function preload() {
+    this.load.image('white', '../assets/characters/white.jpg');
     this.load.image('tiles', '../assets/tiles/blackvolution.png');
     this.load.tilemapTiledJSON({
         key: 'map',
@@ -30,22 +38,28 @@ function preload()
     });
 }
 
-function create()
-{
+function create() {
+    // Create tileset from the map
     const map = this.make.tilemap({ key: 'map' });
     const tileset = map.addTilesetImage('bvtiles', 'tiles');
-    // Create layers
-    const walkable_l = map.createStaticLayer('walkable', tileset, 0, 0);
-    const world_l = map.createStaticLayer('world', tileset, 0, 0);
-    const above_l = map.createStaticLayer('above', tileset, 0, 0);
+    // Tile layers under the character
+    const walkableLayer = map.createStaticLayer('walkable', tileset, 0, 0);
+    const worldLayer = map.createStaticLayer('world', tileset, 0, 0);
     // Set up collision for tiles with property `collides`
-    world_l.setCollisionByProperty({ collides: true });
+    worldLayer.setCollisionByProperty({ collides: true });
+    // Player initialization
+    player = new Character('Unknown');
+    player.attachSprite(this.physics.add.sprite(256, 112, 'white'));
+    player.setController(this.input.keyboard.createCursorKeys());
+    this.physics.add.collider(player.sprite, worldLayer);
+    // Tile layer above the character
+    const aboveLayer = map.createStaticLayer('above', tileset, 0, 0);
 
     // DEBUG: draw collision bounds
-    drawColliders(this, world_l);
+    drawColliders(this, worldLayer);
 }
 
-function update()
-{
+function update() {
+    player.update();
 }
 

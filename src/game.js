@@ -18,6 +18,7 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
+let controls;
 let player;
 
 function drawColliders(ref, layer) {
@@ -55,11 +56,29 @@ function create() {
     // Tile layer above the character
     const aboveLayer = map.createStaticLayer('above', tileset, 0, 0);
 
-    // DEBUG: draw collision bounds
+    // DEBUG: Draw collision bounds
     drawColliders(this, worldLayer);
+
+    // Main camera
+    const camera = this.cameras.main;
+    camera.setZoom(2);
+    // Constrain camera with world bounds
+    camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    camera.startFollow(player.sprite);
+
+    // DEBUG: Allow camera control with arrow keys
+    // const cursors = this.input.keyboard.createCursorKeys();
+    // controls = new Phaser.Cameras.Controls.FixedKeyControl({
+    //     camera: camera,
+    //     left: cursors.left,
+    //     right: cursors.right,
+    //     up: cursors.up,
+    //     down: cursors.down,
+    //     speed: 0.1
+    // });
 }
 
-function update() {
+function update(time, delta) {
     player.update();
 }
 

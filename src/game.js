@@ -23,21 +23,24 @@ let worldLayer;
 let map;
 let tileset;
 
-const SPAWN_X = 256;
-const SPAWN_Y = 112;
+const PLAYER_SPAWN_X = 256;
+const PLAYER_SPAWN_Y = 112;
+
+const ASSET_SPRITESHEAT_PNG = '../assets/characters/spritesheet.png';
+const ASSET_SPRITESHEAT_JSON = '../assets/characters/spritesheet.json';
+const ASSET_TILES_PNG = '../assets/tiles/blackvolution.png';
+const ASSET_TILES_JSON = '../assets/tiles/blackvolution.json';
 
 function preload() {
-    this.load.image('white', '../assets/characters/white.jpg');
-
     this.load.atlas('sprite',
-        '../assets/characters/spritesheet.png',
-        '../assets/characters/spritesheet.json'
+        ASSET_SPRITESHEAT_PNG,
+        ASSET_SPRITESHEAT_JSON
     );
 
-    this.load.image('tiles', '../assets/tiles/blackvolution.png');
+    this.load.image('tiles', ASSET_TILES_PNG);
     this.load.tilemapTiledJSON({
         key: 'map',
-        url: '../assets/tiles/blackvolution.json',
+        url: ASSET_TILES_JSON,
     });
 }
 
@@ -117,9 +120,9 @@ function createAnimations(thiz){
 
 function createPlayer(thiz) {
     player = new Character('Unknown');
-    player.attachSprite(thiz.physics.add.sprite(SPAWN_X, SPAWN_Y, 'sprite'));
+    player.attachSprite(thiz.physics.add.sprite(PLAYER_SPAWN_X, PLAYER_SPAWN_Y, 'sprite'));
     player.setController(thiz.input.keyboard.createCursorKeys());
-    this.physics.add.collider(player.sprite, worldLayer);
+    thiz.physics.add.collider(player.sprite, worldLayer);
 }
 
 

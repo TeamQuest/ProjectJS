@@ -31,6 +31,8 @@ const ASSET_SPRITESHEAT_JSON = '../assets/characters/spritesheet.json';
 const ASSET_TILES_PNG = '../assets/tiles/blackvolution.png';
 const ASSET_TILES_JSON = '../assets/tiles/blackvolution.json';
 
+const CAMERA_ZOOM = 2;
+
 function preload() {
     this.load.atlas('sprite',
         ASSET_SPRITESHEAT_PNG,
@@ -57,23 +59,7 @@ function create() {
     // Tile layer above the character
     const aboveLayer = map.createStaticLayer('above', tileset, 0, 0);
 
-    // Main camera
-    const camera = this.cameras.main;
-    camera.setZoom(2);
-    // Constrain camera with world bounds
-    camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-    camera.startFollow(player.sprite);
-
-    // DEBUG: Allow camera control with arrow keys
-    // const cursors = this.input.keyboard.createCursorKeys();
-    // controls = new Phaser.Cameras.Controls.FixedKeyControl({
-    //     camera: camera,
-    //     left: cursors.left,
-    //     right: cursors.right,
-    //     up: cursors.up,
-    //     down: cursors.down,
-    //     speed: 0.1
-    // });
+    setCamera(this);
 }
 
 function update(time, delta) {
@@ -143,6 +129,25 @@ function createPlayer(thiz) {
     thiz.physics.add.collider(player.sprite, worldLayer);
 }
 
+function setCamera(thiz){
+    // Main camera
+    const camera = thiz.cameras.main;
+    camera.setZoom(CAMERA_ZOOM);
+    // Constrain camera with world bounds
+    camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    camera.startFollow(player.sprite);
+
+    // DEBUG: Allow camera control with arrow keys
+    // const cursors = this.input.keyboard.createCursorKeys();
+    // controls = new Phaser.Cameras.Controls.FixedKeyControl({
+    //     camera: camera,
+    //     left: cursors.left,
+    //     right: cursors.right,
+    //     up: cursors.up,
+    //     down: cursors.down,
+    //     speed: 0.1
+    // });
+}
 
 function drawColliders(ref, layer) {
     // DEBUG: draw collision bounds

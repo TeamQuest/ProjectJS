@@ -18,6 +18,7 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
+let controls;
 let player;
 let worldLayer;
 let map;

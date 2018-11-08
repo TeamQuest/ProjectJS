@@ -55,10 +55,10 @@ function create() {
 
     createPlayer(this);
 
-    drawColliders(this, worldLayer);
-
     // Tile layer above the character
     const aboveLayer = map.createStaticLayer('above', tileset, 0, 0);
+
+    drawColliders(this, worldLayer);
 
     setCamera(this);
 }

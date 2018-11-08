@@ -7,6 +7,7 @@ class Character {
 
     attachSprite(sprite) {
         this.sprite = sprite;
+        // Normalize and scale the velocity so that player can't move faster along a diagonal
         this.sprite.body.velocity.normalize().scale(this._speed);
         this.sprite.setCollideWorldBounds(true);
     }
@@ -22,14 +23,18 @@ class Character {
         // Horizontal movement
         if (this.controller.left.isDown) {
             this.sprite.body.setVelocityX(-this._speed);
+            this.sprite.anims.play('playerLeft', true);
         } else if (this.controller.right.isDown) {
             this.sprite.body.setVelocityX(this._speed);
-        }
-        // Vertical movement
-        if (this.controller.up.isDown) {
+            this.sprite.anims.play('playerRight', true);
+        } else if (this.controller.up.isDown) {
             this.sprite.body.setVelocityY(-this._speed);
+            this.sprite.anims.play('playerUp', true);
         } else if (this.controller.down.isDown) {
             this.sprite.body.setVelocityY(this._speed);
+            this.sprite.anims.play('playerDown', true);
+        } else {
+            this.sprite.anims.stop();
         }
     }
 }

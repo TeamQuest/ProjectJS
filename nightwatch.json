@@ -1,0 +1,49 @@
+{
+  "src_folders" : ["nightwatch/tests"],
+  "output_folder" : "reports",
+  "custom_commands_path" : ["node_modules/phase-2-e/lib/custom-commands/", "./nightwatch/custom-commands"],
+  "custom_assertions_path" : ["node_modules/phase-2-e/lib/custom-assertions/", "./nightwatch/custom-assertions"],
+  "page_objects_path" : "nightwatch/page-objects",
+  "globals_path" : "",
+
+  "selenium" : {
+    "start_process" : true,
+    "server_path" : "bin/selenium-server-standalone-3.4.0.jar",
+    "log_path" : "",
+    "port" : 4444,
+    "cli_args" : {
+      "webdriver.chrome.driver" : "bin/chromedriver",
+      "webdriver.gecko.driver" : "",
+      "webdriver.edge.driver" : ""
+    }
+  },
+
+  "test_settings" : {
+    "default" : {
+      "launch_url" : "http://localhost",
+      "selenium_port"  : 4444,
+      "selenium_host"  : "localhost",
+      "silent": true,
+      "screenshots" : {
+        "enabled" : true,
+        "path" : "nightwatch/screenshots"
+      },
+      "desiredCapabilities": {
+        "browserName": "chrome",
+        "marionette": true
+      }
+    },
+
+    "chrome" : {
+      "desiredCapabilities": {
+        "browserName": "chrome"
+      }
+    },
+
+    "edge" : {
+      "desiredCapabilities": {
+        "browserName": "MicrosoftEdge"
+      }
+    }
+  }
+}

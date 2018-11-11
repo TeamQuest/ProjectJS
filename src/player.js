@@ -1,5 +1,5 @@
 class Character {
-    constructor(ref, name) {
+    constructor(name) {
         this.name = name;
         this.hp = 100;
         this._speed = 100;
@@ -38,3 +38,5 @@ class Character {
         }
     }
 }
+
+module.exports = Character;

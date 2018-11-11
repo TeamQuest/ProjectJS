@@ -1,8 +1,19 @@
 class Character {
-    constructor(ref, name) {
+    constructor(name) {
         this.name = name;
         this.hp = 100;
         this._speed = 100;
+    }
+
+    get name(){
+      return this._name;
+    }
+
+    set name(value){
+      if (typeof value !== 'string') {
+        throw new Error('"name" must be a string.');
+      }
+        this._name = value;
     }
 
     attachSprite(sprite) {
@@ -38,3 +49,5 @@ class Character {
         }
     }
 }
+
+module.exports = Character;

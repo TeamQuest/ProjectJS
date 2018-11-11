@@ -1,0 +1,34 @@
+{
+  "name": "prjectjs",
+  "version": "1.0.0",
+  "description": "## Game",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha || true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TeamQuest/ProjectJS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TeamQuest/ProjectJS/issues"
+  },
+  "homepage": "https://github.com/TeamQuest/ProjectJS#readme",
+  "devDependencies": {
+    "canvas": "^1.6.11",
+    "chai": "^4.2.0",
+    "istanbul": "^0.4.5",
+    "jsdom": "13.0.0",
+    "jsdom-global": "3.0.2",
+    "mocha": "^5.2.0",
+    "phase-2-e": "^0.2.1",
+    "should": "^13.2.3",
+    "window": "^4.2.5"
+  },
+  "dependencies": {
+    "nightwatch": "^0.9.21",
+    "window": "^4.2.5"
+  }
+}

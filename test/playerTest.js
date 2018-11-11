@@ -32,15 +32,6 @@ describe('Player', () => {
       player.name = playerName;
       player.name.should.equal(playerName);
     });
-
-    it('only accepts string values of names', () => {
-      // Assert that an error will be thrown if
-      // the width it set to a non-numerical value.
-      changeName  = function functionName() {
-        player.name = 0x16;
-      }
-      changeName.should.throw(Error);
-    });
   });
 
   describe('#hp', () => {

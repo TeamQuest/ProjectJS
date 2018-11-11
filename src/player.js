@@ -5,17 +5,6 @@ class Character {
         this._speed = 100;
     }
 
-    get name(){
-      return this._name;
-    }
-
-    set name(value){
-      if (typeof value !== 'string') {
-        throw new Error('"name" must be a string.');
-      }
-        this._name = value;
-    }
-
     attachSprite(sprite) {
         this.sprite = sprite;
         // Normalize and scale the velocity so that player can't move faster along a diagonal

@@ -1,28 +1,8 @@
-const config = {
-    type: Phaser.AUTO,
-    title: 'ProjectJS',
-    width: 800,
-    height: 600,
-    physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: {x: 0, y: 0},
-        }
-    },
-    pixelArt: true,
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
-};
-
-const game = new Phaser.Game(config);
-let controls;
-let player;
-let worldLayer;
-let map;
-let tileset;
+let controls,
+    player,
+    worldLayer,
+    map,
+    tileset;
 
 const PLAYER_SPAWN_X = 256;
 const PLAYER_SPAWN_Y = 112;
@@ -33,39 +13,6 @@ const ASSET_TILES_PNG = '../assets/tiles/blackvolution.png';
 const ASSET_TILES_JSON = '../assets/tiles/blackvolution.json';
 
 const CAMERA_ZOOM = 2;
-
-function preload() {
-    this.load.atlas('sprite',
-        ASSET_SPRITESHEAT_PNG,
-        ASSET_SPRITESHEAT_JSON
-    );
-
-    this.load.image('tiles', ASSET_TILES_PNG);
-    this.load.tilemapTiledJSON({
-        key: 'map',
-        url: ASSET_TILES_JSON,
-    });
-}
-
-function create() {
-
-    createWorld(this);
-
-    createAnimations(this);
-
-    createPlayer(this);
-
-    // Tile layer above the character
-    const aboveLayer = map.createStaticLayer('above', tileset, 0, 0);
-
-    drawColliders(this, worldLayer);
-
-    setCamera(this);
-}
-
-function update(time, delta) {
-    player.update();
-}
 
 function createWorld(thiz) {
     // Create tileset from the map
@@ -158,5 +105,45 @@ function drawColliders(ref, layer) {
         collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
         faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
     });
-}
+  }
 
+class game extends Phaser.Scene {
+
+  constructor(){
+    super({key: "game"});
+  }
+
+   preload() {
+      this.load.atlas('sprite',
+          ASSET_SPRITESHEAT_PNG,
+          ASSET_SPRITESHEAT_JSON
+      );
+
+      this.load.image('tiles', ASSET_TILES_PNG);
+      this.load.tilemapTiledJSON({
+          key: 'map',
+          url: ASSET_TILES_JSON,
+      });
+  }
+
+  create() {
+
+      createWorld(this);
+
+      createAnimations(this);
+
+      createPlayer(this);
+
+      // Tile layer above the character
+      const aboveLayer = map.createStaticLayer('above', tileset, 0, 0);
+
+      drawColliders(this, worldLayer);
+
+      setCamera(this);
+  }
+
+   update(time, delta) {
+      player.update();
+  }
+
+}

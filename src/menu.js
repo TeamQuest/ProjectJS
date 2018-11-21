@@ -33,7 +33,4 @@ class MainMenu extends Phaser.Scene{
       },this );
 
   }
-
-
-
 }

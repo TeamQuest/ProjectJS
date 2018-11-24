@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   'Test if server run' : function (browser) {
     browser
       .url('http://0.0.0.0:8000')

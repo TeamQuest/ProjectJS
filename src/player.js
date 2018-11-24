@@ -19,7 +19,6 @@ class Character {
     update() {
         // Stop any previous movement from the last frame
         this.sprite.body.setVelocity(0);
-
         // Horizontal movement
         if (this.controller.left.isDown) {
             this.sprite.body.setVelocityX(-this._speed);
@@ -39,4 +38,9 @@ class Character {
     }
 }
 
-module.exports = Character;
+// Consider using: `export default Character;` (JS ES6)
+// module.exports = Character;
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^
+//           this doesn't work 
+//           Uncaught ReferenceError: module is not defined
+//           at player.js: 42

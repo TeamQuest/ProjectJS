@@ -1,8 +1,8 @@
-let controls,
-    player,
-    worldLayer,
-    map,
-    tileset;
+let controls;
+let player;
+let worldLayer;
+let map;
+let tileset;
 
 const PLAYER_SPAWN_X = 256;
 const PLAYER_SPAWN_Y = 112;
@@ -14,9 +14,9 @@ const ASSET_TILES_JSON = '../assets/tiles/blackvolution.json';
 
 const CAMERA_ZOOM = 2;
 
-function createWorld(thiz) {
+function createWorld(that) {
     // Create tileset from the map
-    map = thiz.make.tilemap({key: 'map'});
+    map = that.make.tilemap({key: 'map'});
     tileset = map.addTilesetImage('bvtiles', 'tiles');
 
     // Tile layers under the character
@@ -27,10 +27,10 @@ function createWorld(thiz) {
     worldLayer.setCollisionByProperty({collides: true});
 }
 
-function createAnimations(thiz){
-    thiz.anims.create({
+function createAnimations(that){
+    that.anims.create({
         key: 'playerLeft',
-        frames: thiz.anims.generateFrameNames('sprite', {
+        frames: that.anims.generateFrameNames('sprite', {
             prefix: "sprite",
             start: 63,
             end: 65
@@ -38,9 +38,9 @@ function createAnimations(thiz){
         frameRate: 10,
         repeat: -1
     });
-    thiz.anims.create({
+    that.anims.create({
         key: 'playerRight',
-        frames: thiz.anims.generateFrameNames('sprite', {
+        frames: that.anims.generateFrameNames('sprite', {
             prefix: "sprite",
             start: 94,
             end: 96
@@ -48,9 +48,9 @@ function createAnimations(thiz){
         frameRate: 10,
         repeat: -1
     });
-    thiz.anims.create({
+    that.anims.create({
         key: 'playerUp',
-        frames: thiz.anims.generateFrameNames('sprite', {
+        frames: that.anims.generateFrameNames('sprite', {
             prefix: "sprite",
             start: 1,
             end: 3
@@ -58,9 +58,9 @@ function createAnimations(thiz){
         frameRate: 10,
         repeat: -1
     });
-    thiz.anims.create({
+    that.anims.create({
         key: 'playerDown',
-        frames: thiz.anims.generateFrameNames('sprite', {
+        frames: that.anims.generateFrameNames('sprite', {
             prefix: "sprite",
             start: 32,
             end: 34
@@ -70,16 +70,16 @@ function createAnimations(thiz){
     });
 }
 
-function createPlayer(thiz) {
+function createPlayer(that) {
     player = new Character('Unknown');
-    player.attachSprite(thiz.physics.add.sprite(PLAYER_SPAWN_X, PLAYER_SPAWN_Y, 'sprite'));
-    player.setController(thiz.input.keyboard.createCursorKeys());
-    thiz.physics.add.collider(player.sprite, worldLayer);
+    player.attachSprite(that.physics.add.sprite(PLAYER_SPAWN_X, PLAYER_SPAWN_Y, 'sprite'));
+    player.setController(that.input.keyboard.createCursorKeys());
+    that.physics.add.collider(player.sprite, worldLayer);
 }
 
-function setCamera(thiz){
+function setCamera(that){
     // Main camera
-    const camera = thiz.cameras.main;
+    const camera = that.cameras.main;
     camera.setZoom(CAMERA_ZOOM);
     // Constrain camera with world bounds
     camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -105,45 +105,39 @@ function drawColliders(ref, layer) {
         collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
         faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
     });
-  }
+}
 
-class game extends Phaser.Scene {
+class Game extends Phaser.Scene {
 
-  constructor(){
-    super({key: "game"});
-  }
+    constructor() {
+        super({key: "Game"});
+    }
 
-   preload() {
-      this.load.atlas('sprite',
-          ASSET_SPRITESHEAT_PNG,
-          ASSET_SPRITESHEAT_JSON
-      );
+    preload() {
+        this.load.atlas('sprite',
+            ASSET_SPRITESHEAT_PNG,
+            ASSET_SPRITESHEAT_JSON
+        );
 
-      this.load.image('tiles', ASSET_TILES_PNG);
-      this.load.tilemapTiledJSON({
-          key: 'map',
-          url: ASSET_TILES_JSON,
-      });
-  }
+        this.load.image('tiles', ASSET_TILES_PNG);
+        this.load.tilemapTiledJSON({
+            key: 'map',
+            url: ASSET_TILES_JSON,
+        });
+    }
 
-  create() {
+    create() {
+        createWorld(this);
+        createAnimations(this);
+        createPlayer(this);
+        // Tile layer above the character
+        const aboveLayer = map.createStaticLayer('above', tileset, 0, 0);
+        drawColliders(this, worldLayer);
+        setCamera(this);
+    }
 
-      createWorld(this);
-
-      createAnimations(this);
-
-      createPlayer(this);
-
-      // Tile layer above the character
-      const aboveLayer = map.createStaticLayer('above', tileset, 0, 0);
-
-      drawColliders(this, worldLayer);
-
-      setCamera(this);
-  }
-
-   update(time, delta) {
-      player.update();
-  }
+    update(time, delta) {
+        player.update();
+    }
 
 }

@@ -1,22 +1,11 @@
 dist: trusty
-sudo: require
+sudo: false
 
-compiler: gcc
-language: cpp
-
-addons:
-apt:
-sources:
-- ubuntu-toolchain-r-test
+compiler:
+language: node_js
 
 packages:
-- gcc-6
-- g++-6
-- cmake
-
-jobs:
-include:
-- stage: Unit Tests
-script:
-- npm install
-- npm install -g nightwatch
+  jobs:
+    include:
+      - stage: Nightwatch
+      script: nightwatch

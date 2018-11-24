@@ -1,10 +1,8 @@
 dist: trusty
 sudo: false
 
-compiler:
 language: node_js
 
-packages:
 jobs:
   include:
     - stage: Nightwatch

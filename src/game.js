@@ -11,16 +11,6 @@ const sprites = {
     "player": null
 }
 
-const PLAYER_SPAWN_X = 256;
-const PLAYER_SPAWN_Y = 112;
-
-const ASSET_SPRITESHEAT_PNG = '../assets/characters/spritesheet.png';
-const ASSET_SPRITESHEAT_JSON = '../assets/characters/spritesheet.json';
-const ASSET_TILES_PNG = '../assets/tiles/blackvolution.png';
-const ASSET_TILES_JSON = '../assets/tiles/blackvolution.json';
-
-const CAMERA_ZOOM = 2;
-
 class Game extends Phaser.Scene {
 
     constructor() {
@@ -30,14 +20,14 @@ class Game extends Phaser.Scene {
     preload() {
         console.log('Preloading resources ...');
         this.load.atlas('character-sprites',
-            ASSET_SPRITESHEAT_PNG,
-            ASSET_SPRITESHEAT_JSON
+            Constants.ASSET_SPRITESHEAT_PNG,
+            Constants.ASSET_SPRITESHEAT_JSON
         );
 
-        this.load.image('tiles', ASSET_TILES_PNG);
+        this.load.image('tiles', Constants.ASSET_TILES_PNG);
         this.load.tilemapTiledJSON({
             key: 'map',
-            url: ASSET_TILES_JSON,
+            url: Constants.ASSET_TILES_JSON,
         });
     }
 
@@ -69,7 +59,11 @@ function setupWorldMap(that) {
     // Set up collision for tiles with property `collides`
     layers.world.setCollisionByProperty({collides: true});
     // Player's sprite must be drawn between two layers
-    sprites.player = that.physics.add.sprite(PLAYER_SPAWN_X, PLAYER_SPAWN_Y, 'character-sprites');
+    sprites.player = that.physics.add.sprite(
+        Constants.PLAYER_SPAWN_X,
+        Constants.PLAYER_SPAWN_Y,
+        'character-sprites'
+    );
     // Tile layer above the character
     layers.above = map.createStaticLayer('above', tileset, 0, 0);
 }
@@ -128,7 +122,7 @@ function createPlayer(that) {
 function setCamera(that){
     // Main camera
     const camera = that.cameras.main;
-    camera.setZoom(CAMERA_ZOOM);
+    camera.setZoom(Constants.CAMERA_ZOOM);
     // Constrain camera with world bounds
     camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     camera.startFollow(player.sprite);

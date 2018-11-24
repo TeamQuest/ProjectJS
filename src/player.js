@@ -17,9 +17,10 @@ class Character {
     }
 
     update() {
+        // Save previous velocity to start fixing issue #57
+        let prevVelocity = this.sprite.body.velocity;
         // Stop any previous movement from the last frame
         this.sprite.body.setVelocity(0);
-
         // Horizontal movement
         if (this.controller.left.isDown) {
             this.sprite.body.setVelocityX(-this._speed);
@@ -34,9 +35,15 @@ class Character {
             this.sprite.body.setVelocityY(this._speed);
             this.sprite.anims.play('playerDown', true);
         } else {
+            // Issue #57: This does stops on the wrong frame sometimes
             this.sprite.anims.stop();
         }
     }
 }
 
-module.exports = Character;
+// Consider using: `export default Character;` (JS ES6)
+// module.exports = Character;
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^
+//           this doesn't work 
+//           Uncaught ReferenceError: module is not defined
+//           at player.js: 42

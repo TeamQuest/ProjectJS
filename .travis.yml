@@ -5,7 +5,7 @@ compiler:
 language: node_js
 
 packages:
-  jobs:
-    include:
-      - stage: Nightwatch
-      script: nightwatch
+jobs:
+  include:
+    - stage: Nightwatch
+    script: nightwatch

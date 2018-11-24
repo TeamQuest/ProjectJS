@@ -1,0 +1,22 @@
+dist: trusty
+sudo: require
+
+compiler: gcc
+language: cpp
+
+addons:
+apt:
+sources:
+- ubuntu-toolchain-r-test
+
+packages:
+- gcc-6
+- g++-6
+- cmake
+
+jobs:
+include:
+- stage: Unit Tests
+script:
+- npm install
+- npm install -g nightwatch

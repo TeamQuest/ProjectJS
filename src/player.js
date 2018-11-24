@@ -17,6 +17,8 @@ class Character {
     }
 
     update() {
+        // Save previous velocity to start fixing issue #57
+        let prevVelocity = this.sprite.body.velocity;
         // Stop any previous movement from the last frame
         this.sprite.body.setVelocity(0);
         // Horizontal movement
@@ -33,6 +35,7 @@ class Character {
             this.sprite.body.setVelocityY(this._speed);
             this.sprite.anims.play('playerDown', true);
         } else {
+            // Issue #57: This does stops on the wrong frame sometimes
             this.sprite.anims.stop();
         }
     }

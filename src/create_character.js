@@ -87,7 +87,7 @@ class CreateCharacter extends Phaser.Scene{
       .on('pointerdown', function (event) {
         if(myXOR(clickedMale,clickedFemale) ){
             console.log('choose "'+ characterGender +'" as a player ');
-            this.scene.start('Game', { name: name , gender: characterGender } );
+            this.scene.start('Game', { gender: characterGender } );
         }else{
             failCounter++;
             this.text = this.add.text(100, 250+(failCounter*15), 'Choose one character!', { fill: getRandomColor() });

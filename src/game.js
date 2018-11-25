@@ -17,11 +17,19 @@ class Game extends Phaser.Scene {
         super({ key: "Game" });
     }
 
+    init(data){
+        this.characterGender = data.gender;
+    }
+
     preload() {
         console.log('Preloading resources ...');
-        this.load.atlas('character-sprites',
+        this.load.atlas('character-sprites_male',
             Constants.ASSET_SPRITESHEAT_PNG,
             Constants.ASSET_SPRITESHEAT_JSON
+        );
+        this.load.atlas('character-sprites_female',
+            Constants.ASSET_SPRITESHEAT_PNG_GIRL,
+            Constants.ASSET_SPRITESHEAT_JSON_GIRL
         );
 
         this.load.image('tiles', Constants.ASSET_TILES_PNG);
@@ -59,11 +67,27 @@ function setupWorldMap(that) {
     // Set up collision for tiles with property `collides`
     layers.world.setCollisionByProperty({collides: true});
     // Player's sprite must be drawn between two layers
-    sprites.player = that.physics.add.sprite(
-        Constants.PLAYER_SPAWN_X,
-        Constants.PLAYER_SPAWN_Y,
-        'character-sprites'
-    );
+
+    switch(characterGender)
+    {
+        case characterGenderEnum.MALE:
+            sprites.player = that.physics.add.sprite(
+                Constants.PLAYER_SPAWN_X,
+                Constants.PLAYER_SPAWN_Y,
+                'character-sprites_male'
+            );
+        break;
+
+        case characterGenderEnum.FEMALE:
+            sprites.player = that.physics.add.sprite(
+                Constants.PLAYER_SPAWN_X,
+                Constants.PLAYER_SPAWN_Y,
+                'character-sprites_female'
+            );
+        break;
+    }
+
+
     // Tile layer above the character
     layers.above = map.createStaticLayer('above', tileset, 0, 0);
 }
@@ -71,10 +95,10 @@ function setupWorldMap(that) {
 function prepareAnimations(that){
 
     switch(characterGender){
-        case characterGenderEnum.MALE:
+        case 'male':
             that.anims.create({
                 key: 'playerLeft',
-                frames: that.anims.generateFrameNames('character-sprites', {
+                frames: that.anims.generateFrameNames('character-sprites_male', {
                     prefix: "sprite",
                     start: 63,
                     end: 65
@@ -84,7 +108,7 @@ function prepareAnimations(that){
             });
             that.anims.create({
                 key: 'playerRight',
-                frames: that.anims.generateFrameNames('character-sprites', {
+                frames: that.anims.generateFrameNames('character-sprites_male', {
                     prefix: "sprite",
                     start: 94,
                     end: 96
@@ -94,7 +118,7 @@ function prepareAnimations(that){
             });
             that.anims.create({
                 key: 'playerUp',
-                frames: that.anims.generateFrameNames('character-sprites', {
+                frames: that.anims.generateFrameNames('character-sprites_male', {
                     prefix: "sprite",
                     start: 1,
                     end: 3
@@ -104,7 +128,7 @@ function prepareAnimations(that){
             });
             that.anims.create({
                 key: 'playerDown',
-                frames: that.anims.generateFrameNames('character-sprites', {
+                frames: that.anims.generateFrameNames('character-sprites_male', {
                     prefix: "sprite",
                     start: 32,
                     end: 34
@@ -112,48 +136,50 @@ function prepareAnimations(that){
                 frameRate: 10,
                 repeat: -1
             });
+        break;
 
-        case characterGenderEnum.FEMALE:
+        case 'female':
             that.anims.create({
                 key: 'playerLeft',
-                frames: that.anims.generateFrameNames('character-sprites', {
+                frames: that.anims.generateFrameNames('character-sprites_female', {
                     prefix: "sprite",
-                    start: 76,
-                    end: 78
+                    start: 7,
+                    end: 9
                 }),
                 frameRate: 10,
                 repeat: -1
             });
             that.anims.create({
                 key: 'playerRight',
-                frames: that.anims.generateFrameNames('character-sprites', {
+                frames: that.anims.generateFrameNames('character-sprites_female', {
                     prefix: "sprite",
-                    start: 102,
-                    end: 104
+                    start: 10,
+                    end: 12
                 }),
                 frameRate: 10,
                 repeat: -1
             });
             that.anims.create({
                 key: 'playerUp',
-                frames: that.anims.generateFrameNames('character-sprites', {
+                frames: that.anims.generateFrameNames('character-sprites_female', {
                     prefix: "sprite",
-                    start: 14,
-                    end: 16
+                    start: 1,
+                    end: 3
                 }),
                 frameRate: 10,
                 repeat: -1
             });
             that.anims.create({
                 key: 'playerDown',
-                frames: that.anims.generateFrameNames('character-sprites', {
+                frames: that.anims.generateFrameNames('character-sprites_female', {
                     prefix: "sprite",
-                    start: 45,
-                    end: 47
+                    start: 4,
+                    end: 6
                 }),
                 frameRate: 10,
                 repeat: -1
             });
+          break;
       }
 }
 

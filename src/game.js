@@ -48,7 +48,7 @@ class Game extends Phaser.Scene {
 }
 
 function setupWorldMap(that) {
-    console.log('Loading world ...');
+    console.log('Loading the world ...');
     // Create tileset from the map
     map = that.make.tilemap({key: 'map'});
     tileset = map.addTilesetImage('bvtiles', 'tiles');
@@ -73,8 +73,8 @@ function prepareAnimations(that){
         key: 'playerLeft',
         frames: that.anims.generateFrameNames('character-sprites', {
             prefix: "sprite",
-            start: 63,
-            end: 65
+            start: 65,
+            end: 63
         }),
         frameRate: 10,
         repeat: -1
@@ -83,8 +83,8 @@ function prepareAnimations(that){
         key: 'playerRight',
         frames: that.anims.generateFrameNames('character-sprites', {
             prefix: "sprite",
-            start: 94,
-            end: 96
+            start: 96,
+            end: 94
         }),
         frameRate: 10,
         repeat: -1
@@ -93,8 +93,8 @@ function prepareAnimations(that){
         key: 'playerUp',
         frames: that.anims.generateFrameNames('character-sprites', {
             prefix: "sprite",
-            start: 1,
-            end: 3
+            start: 3,
+            end: 1
         }),
         frameRate: 10,
         repeat: -1
@@ -103,8 +103,8 @@ function prepareAnimations(that){
         key: 'playerDown',
         frames: that.anims.generateFrameNames('character-sprites', {
             prefix: "sprite",
-            start: 32,
-            end: 34
+            start: 34,
+            end: 32
         }),
         frameRate: 10,
         repeat: -1
@@ -115,7 +115,7 @@ function createPlayer(that) {
     console.log('Creating character ...');
     player = new Character('Unknown');
     player.attachSprite(sprites.player);
-    player.setController(that.input.keyboard.createCursorKeys());
+    player.attachController(that.input.keyboard.createCursorKeys());
     that.physics.add.collider(player.sprite, layers.world);
 }
 

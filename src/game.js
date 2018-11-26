@@ -2,6 +2,7 @@ let controls;
 let player;
 let map;
 let tileset;
+let graphics = null;  // for debugging
 const layers = {
     "walkable": null,
     "world": null,
@@ -9,6 +10,11 @@ const layers = {
 }
 const sprites = {
     "player": null
+}
+
+// Draws AABB box of the player (DEBUG)
+function drawPlayerCollider() {
+    player.sprite.body.drawDebug(graphics);
 }
 
 class Game extends Phaser.Scene {
@@ -68,7 +74,7 @@ function setupWorldMap(that) {
     layers.above = map.createStaticLayer('above', tileset, 0, 0);
 }
 
-function prepareAnimations(that){
+function prepareAnimations(that) {
     that.anims.create({
         key: 'playerLeft',
         frames: that.anims.generateFrameNames('character-sprites', {
@@ -119,7 +125,7 @@ function createPlayer(that) {
     that.physics.add.collider(player.sprite, layers.world);
 }
 
-function setCamera(that){
+function setCamera(that) {
     // Main camera
     const camera = that.cameras.main;
     camera.setZoom(Constants.CAMERA_ZOOM);
@@ -147,4 +153,5 @@ function drawColliders(ref) {
         collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
         faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
     });
+    graphics = debugGraphics;
 }

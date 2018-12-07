@@ -2,6 +2,7 @@ let controls;
 let player;
 let map;
 let tileset;
+let graphics = null;  // for debugging
 const layers = {
     "walkable": null,
     "world": null,
@@ -9,6 +10,11 @@ const layers = {
 }
 const sprites = {
     "player": null
+}
+
+// Draws AABB box of the player (DEBUG)
+function drawPlayerCollider() {
+    player.sprite.body.drawDebug(graphics);
 }
 
 class Game extends Phaser.Scene {
@@ -20,14 +26,14 @@ class Game extends Phaser.Scene {
     preload() {
         console.log('Preloading resources ...');
         this.load.atlas('character-sprites',
-            Constants.ASSET_SPRITESHEAT_PNG,
-            Constants.ASSET_SPRITESHEAT_JSON
+            Assets.SPRITESHEAT,
+            Assets.SPRITESHEATJSON
         );
 
-        this.load.image('tiles', Constants.ASSET_TILES_PNG);
+        this.load.image('tiles', Assets.TILES);
         this.load.tilemapTiledJSON({
             key: 'map',
-            url: Constants.ASSET_TILES_JSON,
+            url: Assets.TILESJSON,
         });
     }
 
@@ -60,15 +66,15 @@ function setupWorldMap(that) {
     layers.world.setCollisionByProperty({collides: true});
     // Player's sprite must be drawn between two layers
     sprites.player = that.physics.add.sprite(
-        Constants.PLAYER_SPAWN_X,
-        Constants.PLAYER_SPAWN_Y,
+        Constants.PLAYERSPAWNX,
+        Constants.PLAYERSPAWNY,
         'character-sprites'
     );
     // Tile layer above the character
     layers.above = map.createStaticLayer('above', tileset, 0, 0);
 }
 
-function prepareAnimations(that){
+function prepareAnimations(that) {
     that.anims.create({
         key: 'playerLeft',
         frames: that.anims.generateFrameNames('character-sprites', {
@@ -119,10 +125,10 @@ function createPlayer(that) {
     that.physics.add.collider(player.sprite, layers.world);
 }
 
-function setCamera(that){
+function setCamera(that) {
     // Main camera
     const camera = that.cameras.main;
-    camera.setZoom(Constants.CAMERA_ZOOM);
+    camera.setZoom(Constants.CAMERAZOOM);
     // Constrain camera with world bounds
     camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     camera.startFollow(player.sprite);
@@ -147,4 +153,5 @@ function drawColliders(ref) {
         collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
         faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
     });
+    graphics = debugGraphics;
 }

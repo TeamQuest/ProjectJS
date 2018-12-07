@@ -1,12 +1,13 @@
 class Constants {
+    static get PLAYERSPAWNX() { return 256; }
+    static get PLAYERSPAWNY() { return 128; }
 
-    static get ASSET_SPRITESHEAT_PNG() { return '../assets/characters/spritesheet.png' }
-    static get ASSET_SPRITESHEAT_JSON() { return '../assets/characters/spritesheet.json' }
-    static get ASSET_TILES_PNG() { return '../assets/tiles/blackvolution.png' }
-    static get ASSET_TILES_JSON() { return '../assets/tiles/blackvolution.json' }
+    static get CAMERAZOOM() { return 2; }
+}
 
-    static get PLAYER_SPAWN_X() { return 256 }
-    static get PLAYER_SPAWN_Y() { return 112 }
-
-    static get CAMERA_ZOOM() { return 2 }
+class Assets {
+    static get SPRITESHEAT() { return '../assets/characters/spritesheet.png'; }
+    static get SPRITESHEATJSON() { return '../assets/characters/spritesheet.json'; }
+    static get TILES() { return '../assets/tiles/blackvolution.png'; }
+    static get TILESJSON() { return '../assets/tiles/blackvolution.json'; }
 }

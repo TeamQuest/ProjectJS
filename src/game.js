@@ -57,7 +57,7 @@ function setupWorldMap(that) {
     console.log('Loading the world ...');
     // Create tileset from the map
     map = that.make.tilemap({key: 'map'});
-    tileset = map.addTilesetImage('bvtiles', 'tiles');
+    tileset = map.addTilesetImage('tileset', 'tiles');
     // Tile layer under the character
     layers.walkable = map.createStaticLayer('walkable', tileset, 0, 0);
     // Tile layer around the character
@@ -147,7 +147,7 @@ function setCamera(that) {
 
 function drawColliders(ref) {
     // DEBUG: draw collision bounds
-    const debugGraphics = ref.add.graphics().setAlpha(0.75);
+    const debugGraphics = ref.add.graphics().setAlpha(0.0);
     layers.world.renderDebug(debugGraphics, {
         tileColor: null, // Color of non-colliding tiles
         collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles

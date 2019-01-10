@@ -31,4 +31,6 @@ class MainMenu extends Phaser.Scene {
                 this.settingsButton.setStyle({ fill: '#0f1' });
             }, this);
     }
+
 }
+

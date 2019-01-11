@@ -23,7 +23,7 @@ class Game extends Phaser.Scene {
         super({ key: "Game" });
     }
 
-    init(data){
+    init(data) {
         this.characterGender = data.gender;
     }
 
@@ -33,10 +33,10 @@ class Game extends Phaser.Scene {
             Assets.SPRITESHEET_BOY,
             Assets.SPRITESHEET_JSON_BOY
         );
-        this.load.atlas('character-sprites-female',
-            Assets.SPRITESHEET_GIRL,
-            Assets.SPRITESHEET_JSON_GIRL
-        );
+        // this.load.atlas('character-sprites-female',
+        //     Assets.SPRITESHEET_GIRL,
+        //     Assets.SPRITESHEET_JSON_GIRL
+        // );
 
         this.load.image('tiles', Assets.TILES);
         this.load.tilemapTiledJSON({

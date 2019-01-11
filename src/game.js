@@ -2,6 +2,7 @@ let controls;
 let player;
 let map;
 let tileset;
+let graphics = null;  // for debugging
 const layers = {
     "walkable": null,
     "world": null,
@@ -9,6 +10,11 @@ const layers = {
 }
 const sprites = {
     "player": null
+}
+
+// Draws AABB box of the player (DEBUG)
+function drawPlayerCollider() {
+    player.sprite.body.drawDebug(graphics);
 }
 
 class Game extends Phaser.Scene {
@@ -23,19 +29,19 @@ class Game extends Phaser.Scene {
 
     preload() {
         console.log('Preloading resources ...');
-        this.load.atlas('character-sprites_male',
-            Constants.ASSET_SPRITESHEAT_PNG,
-            Constants.ASSET_SPRITESHEAT_JSON
+        this.load.atlas('character-sprites',
+            Assets.SPRITESHEET,
+            Assets.SPRITESHEET_JSON
         );
         this.load.atlas('character-sprites_female',
-            Constants.ASSET_SPRITESHEAT_PNG_GIRL,
-            Constants.ASSET_SPRITESHEAT_JSON_GIRL
+            Assets.SPRITESHEET_GIRL,
+            Assets.SPRITESHEET_JSON_GIRL
         );
 
-        this.load.image('tiles', Constants.ASSET_TILES_PNG);
+        this.load.image('tiles', Assets.TILES);
         this.load.tilemapTiledJSON({
             key: 'map',
-            url: Constants.ASSET_TILES_JSON,
+            url: Assets.TILES_JSON,
         });
     }
 
@@ -56,7 +62,7 @@ class Game extends Phaser.Scene {
 }
 
 function setupWorldMap(that) {
-    console.log('Loading world ...');
+    console.log('Loading the world ...');
     // Create tileset from the map
     map = that.make.tilemap({key: 'map'});
     tileset = map.addTilesetImage('bvtiles', 'tiles');
@@ -92,9 +98,8 @@ function setupWorldMap(that) {
     layers.above = map.createStaticLayer('above', tileset, 0, 0);
 }
 
-function prepareAnimations(that){
-
-    switch(characterGender){
+function prepareAnimations(that) {
+    switch(characterGender) {
         case 'male':
             that.anims.create({
                 key: 'playerLeft',
@@ -187,11 +192,11 @@ function createPlayer(that) {
     console.log('Creating character ...');
     player = new Character('Unknown');
     player.attachSprite(sprites.player);
-    player.setController(that.input.keyboard.createCursorKeys());
+    player.attachController(that.input.keyboard.createCursorKeys());
     that.physics.add.collider(player.sprite, layers.world);
 }
 
-function setCamera(that){
+function setCamera(that) {
     // Main camera
     const camera = that.cameras.main;
     camera.setZoom(Constants.CAMERA_ZOOM);
@@ -219,4 +224,5 @@ function drawColliders(ref) {
         collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
         faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
     });
+    graphics = debugGraphics;
 }

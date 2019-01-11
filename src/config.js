@@ -10,7 +10,7 @@ var config = {
         }
     },
     pixelArt: true,
-    scene: [MainMenu, Game]
+    scene: [MainMenu,CreateCharacter, Game]
 };
 
 var game = new Phaser.Game(config);

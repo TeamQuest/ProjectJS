@@ -51,7 +51,7 @@ class Game extends Phaser.Scene {
         prepareAnimations(this);
         setupWorldMap(this);
         createPlayer(this);
-        drawColliders(this);
+        // drawColliders(this);
         setCamera(this);
     }
 
@@ -218,7 +218,7 @@ function setCamera(that) {
 
 function drawColliders(ref) {
     // DEBUG: draw collision bounds
-    const debugGraphics = ref.add.graphics().setAlpha(0.0);
+    const debugGraphics = ref.add.graphics().setAlpha(0.75);
     layers.world.renderDebug(debugGraphics, {
         tileColor: null, // Color of non-colliding tiles
         collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles

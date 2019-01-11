@@ -6,8 +6,8 @@ class Constants {
 }
 
 class Assets {
-    static get SPRITESHEET() { return '../assets/characters/sprites-man.png'; }
-    static get SPRITESHEET_JSON() { return '../assets/characters/sprites-man.json'; }
+    static get SPRITESHEET_BOY() { return '../assets/characters/sprites-man.png'; }
+    static get SPRITESHEET_JSON_BOY() { return '../assets/characters/sprites-man.json'; }
     static get SPRITESHEET_GIRL() { return '../assets/characters/sprites-girl.png'; }
     static get SPRITESHEET_JSON_GIRL() { return '../assets/characters/sprites-girl.png'; }
     static get TILES() { return '../assets/tiles/tileset.png'; }

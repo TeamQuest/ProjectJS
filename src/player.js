@@ -5,8 +5,8 @@ class Character {
         this.speed = 100;
         this.isMoving = false;
         this.destination = {
-            x: Constants.PLAYERSPAWNX,
-            y: Constants.PLAYERSPAWNY
+            x: Constants.PLAYER_SPAWN_X,
+            y: Constants.PLAYER_SPAWN_Y
         };
         this.prevPosition = null;  // initialized with Sprite
         this.blocked = null;  // initialized with Sprite

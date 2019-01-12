@@ -47,10 +47,10 @@ class MainMenu extends Phaser.Scene {
         .on('pointerdown', function (event) {
          }, this)
         .on('pointerover', function (event) {
-            this.clickButton2.setStyle({ fill: '#ff5'});
+            this.settingsButton.setStyle({ fill: '#ff5'});
         }, this)
         .on('pointerout', function (event) {
-            this.clickButton2.setStyle({ fill: '#0f1' });
+            this.settingsButton.setStyle({ fill: '#0f1' });
         },this );
 
   }

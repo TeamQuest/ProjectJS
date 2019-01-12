@@ -10,6 +10,9 @@ var config = {
         }
     },
     pixelArt: true,
+    audio: {
+        disableWebAudio: true
+    },
     scene: [MainMenu,CreateCharacter, Game]
 };
 

@@ -12,6 +12,8 @@ const sprites = {
     "player": null
 }
 
+let musicOn = true;
+let music = null;
 // Draws AABB box of the player (DEBUG)
 function drawPlayerCollider() {
     player.sprite.body.drawDebug(graphics);
@@ -28,6 +30,9 @@ class Game extends Phaser.Scene {
     }
 
     preload() {
+
+        this.load.audio('music', ['../assets/music/music.mp3']);
+
         console.log('Preloading resources ...');
         this.load.atlas('character-sprites-male',
             Assets.SPRITESHEET_BOY,
@@ -47,12 +52,15 @@ class Game extends Phaser.Scene {
 
     create() {
         console.log('Starting up the game ...')
+        prepareMusic(this);
 
         prepareAnimations(this);
         setupWorldMap(this);
         createPlayer(this);
         // drawColliders(this);
         setCamera(this);
+        prepareKeyDownListeners(this);
+
     }
 
     update(time, delta) {
@@ -225,4 +233,25 @@ function drawColliders(ref) {
         faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
     });
     graphics = debugGraphics;
+}
+
+function prepareMusic(that){
+    musicOn = true;
+
+    music = that.sound.add('music');
+    music.setLoop(true);
+    music.play();
+
+}
+
+function prepareKeyDownListeners(that){
+    that.input.keyboard.on('keydown_M', function (event) {
+        if( musicOn ){
+            musicOn = false;
+            music.pause()
+        } else {
+            musicOn = true;
+            music.resume()
+        }
+    });
 }

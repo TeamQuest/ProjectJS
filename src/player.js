@@ -91,6 +91,6 @@ function isBetween(expected, xval, yval, error=0) {
 // Consider using: `export default Character;` (JS ES6)
 // module.exports = Character;
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^
-//           this doesn't work 
+//           this doesn't work
 //           Uncaught ReferenceError: module is not defined
 //           at player.js: 42

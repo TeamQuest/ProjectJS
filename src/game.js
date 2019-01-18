@@ -78,19 +78,10 @@ function setupWorldMap(that) {
     layers.world.setCollisionByProperty({collides: true});
     // Player's sprite must be drawn between two layers
 
-    switch(characterGender) {
-        case 'male':
-          genderSprite = "sprite32"
-        break;
-        case 'female':
-          genderSprite = "sprite55"
-        break;
-    }
-
     sprites.player = that.physics.add.sprite(
         Constants.PLAYER_SPAWN_X,
         Constants.PLAYER_SPAWN_Y,
-        'character-sprites' , genderSprite
+        'character-sprites' , characterGender == "male"? "sprite32" : "sprite55"
     );
 
     // Tile layer above the character

@@ -14,6 +14,10 @@ const sprites = {
 
 let musicOn = true;
 let music = null;
+let enemies = null;
+let enemy = null;
+let camera = null;
+
 // Draws AABB box of the player (DEBUG)
 function drawPlayerCollider() {
     player.sprite.body.drawDebug(graphics);
@@ -22,7 +26,7 @@ function drawPlayerCollider() {
 class Game extends Phaser.Scene {
 
     constructor() {
-        super({ key: "Game" });
+        super({key: "Game"});
     }
 
     init(data) {
@@ -48,7 +52,7 @@ class Game extends Phaser.Scene {
 
     create() {
         console.log('Starting up the game ...')
-        prepareMusic(this);
+        // prepareMusic(this);
 
         prepareAnimations(this);
         setupWorldMap(this);
@@ -57,6 +61,7 @@ class Game extends Phaser.Scene {
         setCamera(this);
         prepareKeyDownListeners(this);
 
+        prepareInteractionWithEnemies(this)
     }
 
     update(time, delta) {
@@ -81,7 +86,7 @@ function setupWorldMap(that) {
     sprites.player = that.physics.add.sprite(
         Constants.PLAYER_SPAWN_X,
         Constants.PLAYER_SPAWN_Y,
-        'character-sprites' , characterGender == "male"? "sprite32" : "sprite55"
+        'character-sprites', characterGender == "male" ? "sprite32" : "sprite55"
     );
 
     // Tile layer above the character
@@ -89,7 +94,7 @@ function setupWorldMap(that) {
 }
 
 function prepareAnimations(that) {
-    switch(characterGender) {
+    switch (characterGender) {
         case 'male':
             that.anims.create({
                 key: 'playerLeft',
@@ -131,7 +136,7 @@ function prepareAnimations(that) {
                 frameRate: 10,
                 repeat: -1
             });
-        break;
+            break;
 
         case 'female':
             that.anims.create({
@@ -174,8 +179,8 @@ function prepareAnimations(that) {
                 frameRate: 10,
                 repeat: -1
             });
-          break;
-      }
+            break;
+    }
 }
 
 function createPlayer(that) {
@@ -188,7 +193,7 @@ function createPlayer(that) {
 
 function setCamera(that) {
     // Main camera
-    const camera = that.cameras.main;
+    camera = that.cameras.main;
     camera.setZoom(Constants.CAMERA_ZOOM);
     // Constrain camera with world bounds
     camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -217,7 +222,7 @@ function drawColliders(ref) {
     graphics = debugGraphics;
 }
 
-function prepareMusic(that){
+function prepareMusic(that) {
     musicOn = true;
 
     music = that.sound.add('music');
@@ -226,9 +231,9 @@ function prepareMusic(that){
 
 }
 
-function prepareKeyDownListeners(that){
+function prepareKeyDownListeners(that) {
     that.input.keyboard.on('keydown_M', function (event) {
-        if( musicOn ){
+        if (musicOn) {
             musicOn = false;
             music.pause()
         } else {
@@ -236,4 +241,23 @@ function prepareKeyDownListeners(that){
             music.resume()
         }
     });
+}
+
+function prepareInteractionWithEnemies(that) {
+
+    var enemiesArray = map.getObjectLayer('enemies')['objects']; // get all enemies
+
+    let overlapObjectsGroup = that.physics.add.staticGroup({});
+    enemiesArray.forEach(object => {
+        let obj = overlapObjectsGroup.create(object.x, object.y, 'enemy');
+        obj.setScale(object.width / 32, object.height / 32); //my tile size was 32
+        obj.setOrigin(0); //the positioning was off, and B3L7 mentioned the default was 0.5
+        obj.body.width = object.width + 10; //body of the physics body
+        obj.body.height = object.height + 10;
+    });
+    overlapObjectsGroup.refresh(); //physics body needs to refresh
+    console.log(overlapObjectsGroup);
+
+    that.physics.add.overlap(player.sprite, overlapObjectsGroup, onMeetEnemy, null, that);
+
 }

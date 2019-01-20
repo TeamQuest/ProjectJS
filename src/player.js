@@ -88,6 +88,14 @@ function isBetween(expected, xval, yval, error=0) {
     }
 }
 
+
+function onMeetEnemy(player, zone) {
+
+    // start battle
+    console.log("hited :)");
+
+}
+
 // Consider using: `export default Character;` (JS ES6)
 // module.exports = Character;
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^

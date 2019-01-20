@@ -1,7 +1,6 @@
 class Character {
     constructor(name) {
         this.name = name;
-        this.hp = 100;
         this.speed = 100;
         this.isMoving = false;
         this.destination = {
@@ -11,6 +10,10 @@ class Character {
         this.prevPosition = null;  // initialized with Sprite
         this.blocked = null;  // initialized with Sprite
         this.items = [];
+        this.stats = {
+          hp: 100,
+          power: 10
+        }
     }
 
     attachSprite(sprite) {

@@ -63,7 +63,7 @@ class Game extends Phaser.Scene {
         // drawColliders(this);
         setCamera(this);
         prepareKeyDownListeners(this);
-
+        createHud(this);;
     }
 
     update(time, delta) {
@@ -72,6 +72,11 @@ class Game extends Phaser.Scene {
     }
 
 }
+
+function createHud(that) {
+    that.scene.run('Hud', { player: player } );
+}
+
 
 function eqPreload(that)
 {

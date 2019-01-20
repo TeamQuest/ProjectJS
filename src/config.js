@@ -7,13 +7,11 @@ var config = {
         default: 'arcade',
         arcade: {
             gravity: {x: 0, y: 0},
+            debug: true,
         }
     },
     pixelArt: true,
-    audio: {
-        disableWebAudio: true
-    },
-    scene: [MainMenu,CreateCharacter, Game]
+    scene: [MainMenu,CreateCharacter, Game, BattleScene, UIScene]
 };
 
 var game = new Phaser.Game(config);

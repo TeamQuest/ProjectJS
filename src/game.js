@@ -258,6 +258,7 @@ function prepareInteractionWithEnemies(that) {
     overlapObjectsGroup.refresh(); //physics body needs to refresh
     console.log(overlapObjectsGroup);
 
-    that.physics.add.overlap(player.sprite, overlapObjectsGroup, onMeetEnemy, null, that);
+    // add interaction between enemy and player
+    that.physics.add.overlap(player.sprite, overlapObjectsGroup, player.onMeetEnemy, null, that);
 
 }

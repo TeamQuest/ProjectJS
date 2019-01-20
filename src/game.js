@@ -262,6 +262,15 @@ function prepareMusic(that){
 
 }
 
+function showInventoryTitle(that)
+{
+    that.text = that.add.text(200, 60, 'Inventory!', {
+        fill: '#000',
+        fontSize: '70px',
+        fontFamily: 'Comic Sans MS'
+    });
+}
+
 function prepareKeyDownListeners(that){
     that.input.keyboard.on('keydown_M', function (event) {
         if( musicOn ){
@@ -271,5 +280,10 @@ function prepareKeyDownListeners(that){
             musicOn = true;
             music.resume()
         }
+    });
+
+    that.input.keyboard.on('keydown_I', function (event) {
+        that.scene.pause('Game');
+        that.scene.run('Inventory', { player: player } );
     });
 }

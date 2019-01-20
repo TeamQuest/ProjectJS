@@ -11,3 +11,21 @@ class Assets {
     static get TILES() { return '../assets/tiles/tileset.png'; }
     static get TILES_JSON() { return '../assets/tiles/tilemap.json'; }
 }
+
+const EqInfo = {
+
+    SWORD: function() {
+      return {
+        name:"SWORD",
+        damage: 20,
+        describ:"training laga",
+        asset:"../assets/items/Item__01.png"}
+    },
+
+    POTION_RED: function() {
+      return {
+        name:"POTION_RED",
+        describ:"Potion gives you additional health",
+        asset:"../assets/items/Item__29.png"}
+    },
+};

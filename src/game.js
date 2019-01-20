@@ -96,6 +96,8 @@ function prepareEqOnMap(that)
 function collectEq (player_s, item)
 {
     item.disableBody(true, true);
+    console.log("picked "+ item.texture.key);
+    player.items.push(item);
 }
 
 function setupWorldMap(that) {

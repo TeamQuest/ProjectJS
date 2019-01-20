@@ -10,6 +10,7 @@ class Character {
         };
         this.prevPosition = null;  // initialized with Sprite
         this.blocked = null;  // initialized with Sprite
+        this.items = [];
     }
 
     attachSprite(sprite) {

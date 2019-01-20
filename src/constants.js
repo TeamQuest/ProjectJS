@@ -29,3 +29,7 @@ const EqInfo = {
         asset:"../assets/items/Item__29.png"}
     },
 };
+
+const ITEMS_KINDS = [ EqInfo.SWORD(),
+                      EqInfo.POTION_RED()
+                    ]

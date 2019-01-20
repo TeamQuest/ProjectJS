@@ -68,6 +68,7 @@ class Game extends Phaser.Scene {
 
     update(time, delta) {
         player.update();
+        this.physics.add.overlap(player.sprite, group.eq, collectEq, null, this);
     }
 
 }
@@ -90,6 +91,11 @@ function prepareEqOnMap(that)
     group.eq.create(600,500, EqInfo.POTION_RED().name ,0);
     group.eq.create(550,150, EqInfo.SWORD().name,0);
     group.eq.create(100,150, EqInfo.SWORD().name,0);
+}
+
+function collectEq (player_s, item)
+{
+    item.disableBody(true, true);
 }
 
 function setupWorldMap(that) {

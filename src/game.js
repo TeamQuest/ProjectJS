@@ -12,6 +12,11 @@ const sprites = {
     "player": null
 }
 
+const group = {
+  "eq": null,
+  "inventory":null
+}
+
 let musicOn = true;
 let music = null;
 // Draws AABB box of the player (DEBUG)
@@ -44,6 +49,8 @@ class Game extends Phaser.Scene {
             key: 'map',
             url: Assets.TILES_JSON,
         });
+
+        eqPreload(this);
     }
 
     create() {
@@ -65,6 +72,26 @@ class Game extends Phaser.Scene {
 
 }
 
+function eqPreload(that)
+{
+    that.load.spritesheet(EqInfo.POTION_RED().name,
+      EqInfo.POTION_RED().asset,
+      { frameWidth: 16, frameHeight: 16 }
+    );
+    that.load.spritesheet(EqInfo.SWORD().name,
+      EqInfo.SWORD().asset,
+      { frameWidth: 16, frameHeight: 16 }
+    );
+}
+function prepareEqOnMap(that)
+{
+    group.eq = that.physics.add.group();
+    group.eq.create(200,300, EqInfo.POTION_RED().name ,0);
+    group.eq.create(600,500, EqInfo.POTION_RED().name ,0);
+    group.eq.create(550,150, EqInfo.SWORD().name,0);
+    group.eq.create(100,150, EqInfo.SWORD().name,0);
+}
+
 function setupWorldMap(that) {
     console.log('Loading the world ...');
     // Create tileset from the map
@@ -84,6 +111,7 @@ function setupWorldMap(that) {
         'character-sprites' , characterGender == "male"? "sprite32" : "sprite55"
     );
 
+    prepareEqOnMap(that);
     // Tile layer above the character
     layers.above = map.createStaticLayer('above', tileset, 0, 0);
 }

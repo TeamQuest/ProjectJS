@@ -90,10 +90,10 @@ function isBetween(expected, xval, yval, error=0) {
 
 
 function onMeetEnemy(player, zone) {
+    // shake the world
+    camera.shake(300);
 
     // start battle
-    console.log("hited :)");
-
 }
 
 // Consider using: `export default Character;` (JS ES6)

@@ -83,6 +83,18 @@ function eqPreload(that)
       EqInfo.SWORD().asset,
       { frameWidth: 16, frameHeight: 16 }
     );
+    that.load.spritesheet(EqInfo.SILVER_KEY().name,
+    EqInfo.SILVER_KEY().asset,
+    { frameWidth: 16, frameHeight: 16 }
+  );
+  that.load.spritesheet(EqInfo.GOLD_KEY().name,
+    EqInfo.GOLD_KEY().asset,
+    { frameWidth: 16, frameHeight: 16 }
+  );
+  that.load.spritesheet(EqInfo.APPLE().name,
+    EqInfo.APPLE().asset,
+    { frameWidth: 16, frameHeight: 16 }
+  );
 }
 function prepareEqOnMap(that)
 {
@@ -91,6 +103,9 @@ function prepareEqOnMap(that)
     group.eq.create(600,500, EqInfo.POTION_RED().name ,0);
     group.eq.create(550,150, EqInfo.SWORD().name,0);
     group.eq.create(100,150, EqInfo.SWORD().name,0);
+    group.eq.create(100,500, EqInfo.GOLD_KEY().name,0);
+    group.eq.create(420,376, EqInfo.SILVER_KEY().name,0);
+    group.eq.create(600,250, EqInfo.APPLE().name,0);
 }
 
 function collectEq (player_s, item)
@@ -260,15 +275,6 @@ function prepareMusic(that){
     music.setLoop(true);
     music.play();
 
-}
-
-function showInventoryTitle(that)
-{
-    that.text = that.add.text(200, 60, 'Inventory!', {
-        fill: '#000',
-        fontSize: '70px',
-        fontFamily: 'Comic Sans MS'
-    });
 }
 
 function prepareKeyDownListeners(that){

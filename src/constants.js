@@ -28,8 +28,29 @@ const EqInfo = {
         describ:"Potion gives you additional health",
         asset:"../assets/items/Item__29.png"}
     },
+    SILVER_KEY: function() {
+      return {
+        name:"SILVER_KEY",
+        describ:"Mystery key",
+        asset:"../assets/items/Item__69.png"}
+    },
+    GOLD_KEY: function() {
+      return {
+        name:"GOLD_KEY",
+        describ:"Better than silver key. You luck! ",
+        asset:"../assets/items/Item__68.png"}
+    },
+    APPLE: function() {
+      return {
+        name:"APPLE",
+        describ:"Tasty apple gives you more health ",
+        asset:"../assets/items/Item__64.png"}
+    },
 };
 
 const ITEMS_KINDS = [ EqInfo.SWORD(),
-                      EqInfo.POTION_RED()
+                      EqInfo.POTION_RED(),
+                      EqInfo.SILVER_KEY(),
+                      EqInfo.GOLD_KEY(),
+                      EqInfo.APPLE()
                     ]

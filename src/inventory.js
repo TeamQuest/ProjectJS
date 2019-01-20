@@ -33,6 +33,18 @@ function eqPreload(that)
     EqInfo.SWORD().asset,
     { frameWidth: 16, frameHeight: 16 }
   );
+  that.load.spritesheet(EqInfo.SILVER_KEY().name,
+    EqInfo.SILVER_KEY().asset,
+    { frameWidth: 16, frameHeight: 16 }
+  );
+  that.load.spritesheet(EqInfo.GOLD_KEY().name,
+    EqInfo.GOLD_KEY().asset,
+    { frameWidth: 16, frameHeight: 16 }
+  );
+  that.load.spritesheet(EqInfo.APPLE().name,
+    EqInfo.APPLE().asset,
+    { frameWidth: 16, frameHeight: 16 }
+  );
 }
 
 function prepareKeyDownListenersInv(that){

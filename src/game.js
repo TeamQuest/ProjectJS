@@ -56,10 +56,10 @@ class Game extends Phaser.Scene {
     create() {
         console.log('Starting up the game ...')
         prepareMusic(this);
-
         prepareAnimations(this);
         setupWorldMap(this);
         createPlayer(this);
+        prepareSharedVariables(this);
         // drawColliders(this);
         setCamera(this);
         prepareKeyDownListeners(this);
@@ -71,6 +71,12 @@ class Game extends Phaser.Scene {
         this.physics.add.overlap(player.sprite, group.eq, collectEq, null, this);
     }
 
+}
+
+function prepareSharedVariables(that)
+{
+    that.registry.set('hp', player.stats.hp);
+    that.registry.set('power', player.stats.power);
 }
 
 function createHud(that) {

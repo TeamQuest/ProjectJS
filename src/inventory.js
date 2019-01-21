@@ -17,8 +17,6 @@ class Inventory extends Phaser.Scene {
 
     create() {
 
-        console.log('Inventory open');
-
         this.writeItems();
         prepareKeyDownListenersInv(this);
     }
@@ -62,21 +60,32 @@ class Inventory extends Phaser.Scene {
             return element.name == itemName;
         });
 
-        console.log("clicked" + itemName)
+        console.log("clicked " + itemName)
 
-        if (itemName == "POTION_RED")
+        if (itemName == "POTION")
         {
             var localHP = this.registry.get('hp');
             this.registry.set('hp', localHP+50 );
+          //  player.removeItem("POTION");
+            this.scene.restart();
+        }
+        if (itemName == "APPLE")
+        {
+            var localHP = this.registry.get('hp');
+            this.registry.set('hp', localHP+25 );
+          //  player.removeItem("APPLE");
+            this.scene.restart();
         }
         if(itemName == "SWORD")
         {
-          this.registry.set('power', 30 );
+            this.registry.set('power', 30 );
+          //  player.removeItem("SWORD");
+            this.scene.restart();
         }
         if(itemName == "POISON_LAGA")
         {
-          var localHP = this.registry.get('hp');
-          this.registry.set('hp', localHP-10 );
+            var localHP = this.registry.get('hp');
+            this.registry.set('hp', localHP-10 );
         }
     }
 }

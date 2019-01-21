@@ -22,9 +22,9 @@ const EqInfo = {
         asset:"../assets/items/Item__01.png"}
     },
 
-    POTION_RED: function() {
+    POTION: function() {
       return {
-        name:"POTION_RED",
+        name:"POTION",
         describ:"Potion gives you additional health",
         asset:"../assets/items/Item__29.png"}
     },
@@ -57,7 +57,7 @@ const EqInfo = {
 };
 
 const ITEMS_KINDS = [ EqInfo.SWORD(),
-                      EqInfo.POTION_RED(),
+                      EqInfo.POTION(),
                       EqInfo.SILVER_KEY(),
                       EqInfo.GOLD_KEY(),
                       EqInfo.APPLE(),

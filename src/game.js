@@ -86,8 +86,8 @@ function createHud(that) {
 
 function eqPreload(that)
 {
-    that.load.spritesheet(EqInfo.POTION_RED().name,
-      EqInfo.POTION_RED().asset,
+    that.load.spritesheet(EqInfo.POTION().name,
+      EqInfo.POTION().asset,
       { frameWidth: 16, frameHeight: 16 }
     );
     that.load.spritesheet(EqInfo.SWORD().name,
@@ -114,8 +114,8 @@ function eqPreload(that)
 function prepareEqOnMap(that)
 {
     group.eq = that.physics.add.group();
-    group.eq.create(200,300, EqInfo.POTION_RED().name ,0);
-    group.eq.create(600,500, EqInfo.POTION_RED().name ,0);
+    group.eq.create(200,300, EqInfo.POTION().name ,0);
+    group.eq.create(600,500, EqInfo.POTION().name ,0);
     group.eq.create(550,150, EqInfo.SWORD().name,0);
     group.eq.create(100,150, EqInfo.SWORD().name,0);
     group.eq.create(100,500, EqInfo.GOLD_KEY().name,0);

@@ -27,6 +27,12 @@ class Character {
         this.blocked = this.sprite.body.blocked;
     }
 
+    removeItem(itemName)
+    {
+        const index = this.items.indexOf(itemName);
+        this.items.splice(index, 1);
+    }
+
     attachController(controller) {
         this.controller = controller;
     }

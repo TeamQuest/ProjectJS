@@ -52,6 +52,13 @@ const EqInfo = {
         describ:"Poison laga hurts you!",
         asset:"../assets/items/Item__21.png"}
     },
+    SPECIAL_MARKER: function() {
+      return {
+        name:"SPECIAL_MARKER",
+        describ:"ONLY FOR DEVELOPMENT",
+        asset:"../assets/items/Item__24.png"}
+    },
+
 
 
 };
@@ -62,4 +69,5 @@ const ITEMS_KINDS = [ EqInfo.SWORD(),
                       EqInfo.GOLD_KEY(),
                       EqInfo.APPLE(),
                       EqInfo.POISON_LAGA(),
+                      EqInfo.SPECIAL_MARKER(),
                     ]

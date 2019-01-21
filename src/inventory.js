@@ -29,7 +29,7 @@ class Inventory extends Phaser.Scene {
 
         for(var i =0 ; i <   this.player.items.length ; i++ )
         {
-            var itemName = this.player.items[i].texture.key;
+            var itemName = this.player.items[i];
             var item = ITEMS_KINDS.find(function(element) {
                 return element.name == itemName;
             });
@@ -56,37 +56,35 @@ class Inventory extends Phaser.Scene {
     clickHandler (pointer, item)
     {
         var itemName = item.texture.key;
-        var item = ITEMS_KINDS.find(function(element) {
-            return element.name == itemName;
-        });
 
-        console.log("clicked " + itemName)
+        console.log(item)
 
         if (itemName == "POTION")
         {
             var localHP = this.registry.get('hp');
             this.registry.set('hp', localHP+50 );
-          //  player.removeItem("POTION");
+            player.removeItem("POTION");
             this.scene.restart();
         }
         if (itemName == "APPLE")
         {
             var localHP = this.registry.get('hp');
             this.registry.set('hp', localHP+25 );
-          //  player.removeItem("APPLE");
+            player.removeItem("APPLE");
             this.scene.restart();
         }
         if(itemName == "SWORD")
         {
             this.registry.set('power', 30 );
-          //  player.removeItem("SWORD");
-            this.scene.restart();
         }
         if(itemName == "POISON_LAGA")
         {
             var localHP = this.registry.get('hp');
             this.registry.set('hp', localHP-10 );
+            player.removeItem("POISON_LAGA");
+            this.scene.restart();
         }
+        this.add.sprite(item.x-40,item.y,EqInfo.SPECIAL_MARKER().name)
     }
 }
 
@@ -116,6 +114,11 @@ function eqPreload(that)
       EqInfo.POISON_LAGA().asset,
       { frameWidth: 16, frameHeight: 16 }
     );
+    that.load.spritesheet(EqInfo.SPECIAL_MARKER().name,
+      EqInfo.SPECIAL_MARKER().asset,
+      { frameWidth: 16, frameHeight: 16 }
+    );
+
 }
 
 function prepareKeyDownListenersInv(that){

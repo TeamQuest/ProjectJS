@@ -110,6 +110,10 @@ function eqPreload(that)
     EqInfo.POISON_LAGA().asset,
     { frameWidth: 16, frameHeight: 16 }
   );
+  that.load.spritesheet(EqInfo.SPECIAL_MARKER().name,
+    EqInfo.SPECIAL_MARKER().asset,
+    { frameWidth: 16, frameHeight: 16 }
+  );
 }
 function prepareEqOnMap(that)
 {
@@ -128,7 +132,7 @@ function collectEq (player_s, item)
 {
     item.disableBody(true, true);
     console.log("picked "+ item.texture.key);
-    player.items.push(item);
+    player.items.push(item.texture.key);
 }
 
 function setupWorldMap(that) {

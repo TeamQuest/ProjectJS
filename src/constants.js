@@ -46,11 +46,20 @@ const EqInfo = {
         describ:"Tasty apple gives you more health ",
         asset:"../assets/items/Item__64.png"}
     },
+    POISON_LAGA: function() {
+      return {
+        name:"POISON_LAGA",
+        describ:"Poison laga hurts you!",
+        asset:"../assets/items/Item__21.png"}
+    },
+
+
 };
 
 const ITEMS_KINDS = [ EqInfo.SWORD(),
                       EqInfo.POTION_RED(),
                       EqInfo.SILVER_KEY(),
                       EqInfo.GOLD_KEY(),
-                      EqInfo.APPLE()
+                      EqInfo.APPLE(),
+                      EqInfo.POISON_LAGA(),
                     ]

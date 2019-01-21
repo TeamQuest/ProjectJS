@@ -73,6 +73,11 @@ class Inventory extends Phaser.Scene {
         {
           this.registry.set('power', 30 );
         }
+        if(itemName == "POISON_LAGA")
+        {
+          var localHP = this.registry.get('hp');
+          this.registry.set('hp', localHP-10 );
+        }
     }
 }
 
@@ -96,6 +101,10 @@ function eqPreload(that)
     );
     that.load.spritesheet(EqInfo.APPLE().name,
       EqInfo.APPLE().asset,
+      { frameWidth: 16, frameHeight: 16 }
+    );
+    that.load.spritesheet(EqInfo.POISON_LAGA().name,
+      EqInfo.POISON_LAGA().asset,
       { frameWidth: 16, frameHeight: 16 }
     );
 }

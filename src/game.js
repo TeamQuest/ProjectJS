@@ -106,6 +106,10 @@ function eqPreload(that)
     EqInfo.APPLE().asset,
     { frameWidth: 16, frameHeight: 16 }
   );
+  that.load.spritesheet(EqInfo.POISON_LAGA().name,
+    EqInfo.POISON_LAGA().asset,
+    { frameWidth: 16, frameHeight: 16 }
+  );
 }
 function prepareEqOnMap(that)
 {
@@ -117,6 +121,7 @@ function prepareEqOnMap(that)
     group.eq.create(100,500, EqInfo.GOLD_KEY().name,0);
     group.eq.create(420,376, EqInfo.SILVER_KEY().name,0);
     group.eq.create(600,250, EqInfo.APPLE().name,0);
+    group.eq.create(550,200, EqInfo.POISON_LAGA().name,0);
 }
 
 function collectEq (player_s, item)

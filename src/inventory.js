@@ -103,13 +103,17 @@ class Inventory extends Phaser.Scene {
             if(this.player.eq.includes(itemName)) {
                 this.player.removeEQ("SWORD")
                 this.player.items.push("SWORD")
-                this.registry.set('power', 0 );
+                var localPW = this.registry.get('power')
+
+                this.registry.set('power', localPW-30 );
                 this.scene.restart();
             }
             else {
                 this.player.eq.push("SWORD")
                 this.player.removeItem("SWORD")
-                this.registry.set('power', 30 );
+
+                var localPW = this.registry.get('power')
+                this.registry.set('power', localPW+30 );
                 this.scene.restart();
             }
         }

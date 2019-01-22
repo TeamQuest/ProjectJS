@@ -10,6 +10,7 @@ class Character {
         this.prevPosition = null;  // initialized with Sprite
         this.blocked = null;  // initialized with Sprite
         this.items = [];
+        this.eq = [];
         this.stats = {
           hp: 100,
           power: 10
@@ -31,6 +32,12 @@ class Character {
     {
         const index = this.items.indexOf(itemName);
         this.items.splice(index, 1);
+    }
+
+    removeEQ(itemName)
+    {
+        const index = this.eq.indexOf(itemName);
+        this.eq.splice(index, 1);
     }
 
     attachController(controller) {

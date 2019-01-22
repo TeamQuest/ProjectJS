@@ -73,8 +73,7 @@ class Game extends Phaser.Scene {
 
 }
 
-function prepareSharedVariables(that)
-{
+function prepareSharedVariables(that) {
     that.registry.set('hp', player.stats.hp);
     that.registry.set('power', player.stats.power);
 }
@@ -84,8 +83,7 @@ function createHud(that) {
 }
 
 
-function eqPreload(that)
-{
+function eqPreload(that) {
     that.load.spritesheet(EqInfo.POTION().name,
       EqInfo.POTION().asset,
       { frameWidth: 16, frameHeight: 16 }
@@ -95,41 +93,43 @@ function eqPreload(that)
       { frameWidth: 16, frameHeight: 16 }
     );
     that.load.spritesheet(EqInfo.SILVER_KEY().name,
-    EqInfo.SILVER_KEY().asset,
-    { frameWidth: 16, frameHeight: 16 }
-  );
-  that.load.spritesheet(EqInfo.GOLD_KEY().name,
-    EqInfo.GOLD_KEY().asset,
-    { frameWidth: 16, frameHeight: 16 }
-  );
-  that.load.spritesheet(EqInfo.APPLE().name,
-    EqInfo.APPLE().asset,
-    { frameWidth: 16, frameHeight: 16 }
-  );
-  that.load.spritesheet(EqInfo.POISON_LAGA().name,
-    EqInfo.POISON_LAGA().asset,
-    { frameWidth: 16, frameHeight: 16 }
-  );
-  that.load.spritesheet(EqInfo.SPECIAL_MARKER().name,
-    EqInfo.SPECIAL_MARKER().asset,
-    { frameWidth: 16, frameHeight: 16 }
-  );
+      EqInfo.SILVER_KEY().asset,
+      { frameWidth: 16, frameHeight: 16 }
+    );
+    that.load.spritesheet(EqInfo.GOLD_KEY().name,
+      EqInfo.GOLD_KEY().asset,
+      { frameWidth: 16, frameHeight: 16 }
+    );
+    that.load.spritesheet(EqInfo.APPLE().name,
+      EqInfo.APPLE().asset,
+      { frameWidth: 16, frameHeight: 16 }
+    );
+    that.load.spritesheet(EqInfo.POIS_LAG().name,
+      EqInfo.POIS_LAG().asset,
+      { frameWidth: 16, frameHeight: 16 }
+    );
+    that.load.spritesheet(EqInfo.SPECIAL_MARKER().name,
+      EqInfo.SPECIAL_MARKER().asset,
+      { frameWidth: 16, frameHeight: 16 }
+    );
+    that.load.spritesheet(EqInfo.ARMOR().name,
+      EqInfo.ARMOR().asset,
+      { frameWidth: 16, frameHeight: 16 }
+    );
 }
-function prepareEqOnMap(that)
-{
+function prepareEqOnMap(that) {
     group.eq = that.physics.add.group();
     group.eq.create(200,300, EqInfo.POTION().name ,0);
     group.eq.create(600,500, EqInfo.POTION().name ,0);
-    group.eq.create(550,150, EqInfo.SWORD().name,0);
     group.eq.create(100,150, EqInfo.SWORD().name,0);
     group.eq.create(100,500, EqInfo.GOLD_KEY().name,0);
     group.eq.create(420,376, EqInfo.SILVER_KEY().name,0);
     group.eq.create(600,250, EqInfo.APPLE().name,0);
-    group.eq.create(550,200, EqInfo.POISON_LAGA().name,0);
+    group.eq.create(550,200, EqInfo.POIS_LAG().name,0);
+    group.eq.create(250,200, EqInfo.ARMOR().name,0);
 }
 
-function collectEq (player_s, item)
-{
+function collectEq (player_s, item) {
     item.disableBody(true, true);
     console.log("picked "+ item.texture.key);
     player.items.push(item.texture.key);

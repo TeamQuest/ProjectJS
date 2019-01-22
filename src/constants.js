@@ -25,7 +25,7 @@ const EqInfo = {
     POTION: function() {
       return {
         name:"POTION",
-        describ:"Potion gives you additional health",
+        describ:"Potion gives you health",
         asset:"../assets/items/Item__29.png"}
     },
     SILVER_KEY: function() {
@@ -37,18 +37,18 @@ const EqInfo = {
     GOLD_KEY: function() {
       return {
         name:"GOLD_KEY",
-        describ:"Better than silver key. You luck! ",
+        describ:"Better than silver key",
         asset:"../assets/items/Item__68.png"}
     },
     APPLE: function() {
       return {
         name:"APPLE",
-        describ:"Tasty apple gives you more health ",
+        describ:"Gives you health ",
         asset:"../assets/items/Item__64.png"}
     },
-    POISON_LAGA: function() {
+    POIS_LAG: function() {
       return {
-        name:"POISON_LAGA",
+        name:"POIS_LAG",
         describ:"Poison laga hurts you!",
         asset:"../assets/items/Item__21.png"}
     },
@@ -57,6 +57,12 @@ const EqInfo = {
         name:"SPECIAL_MARKER",
         describ:"ONLY FOR DEVELOPMENT",
         asset:"../assets/items/Item__24.png"}
+    },
+    ARMOR: function() {
+      return {
+        name:"ARMOR",
+        describ:"it looks nice! :)",
+        asset:"../assets/items/Item__59.png"}
     },
 
 
@@ -68,6 +74,7 @@ const ITEMS_KINDS = [ EqInfo.SWORD(),
                       EqInfo.SILVER_KEY(),
                       EqInfo.GOLD_KEY(),
                       EqInfo.APPLE(),
-                      EqInfo.POISON_LAGA(),
+                      EqInfo.POIS_LAG(),
                       EqInfo.SPECIAL_MARKER(),
+                      EqInfo.ARMOR(),
                     ]

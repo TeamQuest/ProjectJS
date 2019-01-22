@@ -11,6 +11,8 @@ var Unit = new Phaser.Class({
         },
     attack: function (target) {
         target.takeDamage(this.damage);
+        // this.scene.events.emit("Message", this.type + " attacks " + target.type + " for " + this.damage + " damage");
+        console.log(this.type + " attacks " + target.type + " for " + this.damage + " damage");
     },
     takeDamage: function (damage) {
         this.hp -= damage;

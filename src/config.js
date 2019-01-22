@@ -13,7 +13,7 @@ var config = {
     audio: {
         disableWebAudio: true
     },
-    scene: [MainMenu,CreateCharacter, Game, Inventory, Hud]
+    scene: [MainMenu, CreateCharacter, Game, Inventory, Hud]
 };
 
 var game = new Phaser.Game(config);

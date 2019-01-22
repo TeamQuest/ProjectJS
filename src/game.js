@@ -13,12 +13,13 @@ const sprites = {
 }
 
 const group = {
-  "eq": null,
-  "inventory":null
+    "eq": null,
+    "inventory": null
 }
 
 let musicOn = true;
 let music = null;
+
 // Draws AABB box of the player (DEBUG)
 function drawPlayerCollider() {
     player.sprite.body.drawDebug(graphics);
@@ -27,7 +28,7 @@ function drawPlayerCollider() {
 class Game extends Phaser.Scene {
 
     constructor() {
-        super({ key: "Game" });
+        super({key: "Game"});
     }
 
     init(data) {
@@ -63,7 +64,8 @@ class Game extends Phaser.Scene {
         // drawColliders(this);
         setCamera(this);
         prepareKeyDownListeners(this);
-        createHud(this);;
+        createHud(this);
+        ;
     }
 
     update(time, delta) {
@@ -79,59 +81,60 @@ function prepareSharedVariables(that) {
 }
 
 function createHud(that) {
-    that.scene.run('Hud', { player: player } );
+    that.scene.run('Hud', {player: player});
 }
 
 
 function eqPreload(that) {
     that.load.spritesheet(EqInfo.POTION().name,
-      EqInfo.POTION().asset,
-      { frameWidth: 16, frameHeight: 16 }
+        EqInfo.POTION().asset,
+        {frameWidth: 16, frameHeight: 16}
     );
     that.load.spritesheet(EqInfo.SWORD().name,
-      EqInfo.SWORD().asset,
-      { frameWidth: 16, frameHeight: 16 }
+        EqInfo.SWORD().asset,
+        {frameWidth: 16, frameHeight: 16}
     );
     that.load.spritesheet(EqInfo.SILVER_KEY().name,
-      EqInfo.SILVER_KEY().asset,
-      { frameWidth: 16, frameHeight: 16 }
+        EqInfo.SILVER_KEY().asset,
+        {frameWidth: 16, frameHeight: 16}
     );
     that.load.spritesheet(EqInfo.GOLD_KEY().name,
-      EqInfo.GOLD_KEY().asset,
-      { frameWidth: 16, frameHeight: 16 }
+        EqInfo.GOLD_KEY().asset,
+        {frameWidth: 16, frameHeight: 16}
     );
     that.load.spritesheet(EqInfo.APPLE().name,
-      EqInfo.APPLE().asset,
-      { frameWidth: 16, frameHeight: 16 }
+        EqInfo.APPLE().asset,
+        {frameWidth: 16, frameHeight: 16}
     );
     that.load.spritesheet(EqInfo.POIS_LAG().name,
-      EqInfo.POIS_LAG().asset,
-      { frameWidth: 16, frameHeight: 16 }
+        EqInfo.POIS_LAG().asset,
+        {frameWidth: 16, frameHeight: 16}
     );
     that.load.spritesheet(EqInfo.SPECIAL_MARKER().name,
-      EqInfo.SPECIAL_MARKER().asset,
-      { frameWidth: 16, frameHeight: 16 }
+        EqInfo.SPECIAL_MARKER().asset,
+        {frameWidth: 16, frameHeight: 16}
     );
     that.load.spritesheet(EqInfo.ARMOR().name,
-      EqInfo.ARMOR().asset,
-      { frameWidth: 16, frameHeight: 16 }
+        EqInfo.ARMOR().asset,
+        {frameWidth: 16, frameHeight: 16}
     );
 }
+
 function prepareEqOnMap(that) {
     group.eq = that.physics.add.group();
-    group.eq.create(200,300, EqInfo.POTION().name ,0);
-    group.eq.create(600,500, EqInfo.POTION().name ,0);
-    group.eq.create(100,150, EqInfo.SWORD().name,0);
-    group.eq.create(100,500, EqInfo.GOLD_KEY().name,0);
-    group.eq.create(420,376, EqInfo.SILVER_KEY().name,0);
-    group.eq.create(600,250, EqInfo.APPLE().name,0);
-    group.eq.create(550,200, EqInfo.POIS_LAG().name,0);
-    group.eq.create(250,200, EqInfo.ARMOR().name,0);
+    group.eq.create(200, 300, EqInfo.POTION().name, 0);
+    group.eq.create(600, 500, EqInfo.POTION().name, 0);
+    group.eq.create(100, 150, EqInfo.SWORD().name, 0);
+    group.eq.create(100, 500, EqInfo.GOLD_KEY().name, 0);
+    group.eq.create(420, 376, EqInfo.SILVER_KEY().name, 0);
+    group.eq.create(600, 250, EqInfo.APPLE().name, 0);
+    group.eq.create(550, 200, EqInfo.POIS_LAG().name, 0);
+    group.eq.create(250, 200, EqInfo.ARMOR().name, 0);
 }
 
-function collectEq (player_s, item) {
+function collectEq(player_s, item) {
     item.disableBody(true, true);
-    console.log("picked "+ item.texture.key);
+    console.log("picked " + item.texture.key);
     player.items.push(item.texture.key);
 }
 
@@ -151,7 +154,7 @@ function setupWorldMap(that) {
     sprites.player = that.physics.add.sprite(
         Constants.PLAYER_SPAWN_X,
         Constants.PLAYER_SPAWN_Y,
-        'character-sprites' , characterGender == "male"? "sprite32" : "sprite55"
+        'character-sprites', characterGender == "male" ? "sprite32" : "sprite55"
     );
 
     prepareEqOnMap(that);
@@ -160,7 +163,7 @@ function setupWorldMap(that) {
 }
 
 function prepareAnimations(that) {
-    switch(characterGender) {
+    switch (characterGender) {
         case 'male':
             that.anims.create({
                 key: 'playerLeft',
@@ -202,7 +205,7 @@ function prepareAnimations(that) {
                 frameRate: 10,
                 repeat: -1
             });
-        break;
+            break;
 
         case 'female':
             that.anims.create({
@@ -245,8 +248,8 @@ function prepareAnimations(that) {
                 frameRate: 10,
                 repeat: -1
             });
-          break;
-      }
+            break;
+    }
 }
 
 function createPlayer(that) {
@@ -288,7 +291,7 @@ function drawColliders(ref) {
     graphics = debugGraphics;
 }
 
-function prepareMusic(that){
+function prepareMusic(that) {
     musicOn = true;
 
     music = that.sound.add('music');
@@ -297,9 +300,9 @@ function prepareMusic(that){
 
 }
 
-function prepareKeyDownListeners(that){
+function prepareKeyDownListeners(that) {
     that.input.keyboard.on('keydown_M', function (event) {
-        if( musicOn ){
+        if (musicOn) {
             musicOn = false;
             music.pause()
         } else {
@@ -310,6 +313,6 @@ function prepareKeyDownListeners(that){
 
     that.input.keyboard.on('keydown_I', function (event) {
         that.scene.pause('Game');
-        that.scene.run('Inventory', { player: player } );
+        that.scene.run('Inventory', {player: player});
     });
 }

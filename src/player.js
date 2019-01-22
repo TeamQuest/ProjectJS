@@ -12,8 +12,8 @@ class Character {
         this.items = [];
         this.eq = [];
         this.stats = {
-          hp: 100,
-          power: 10
+            hp: 100,
+            power: 10
         }
     }
 
@@ -24,7 +24,7 @@ class Character {
         this.sprite.setCollideWorldBounds(true);
         this.sprite.body.setSize(16, 8);
         this.sprite.body.setOffset(8, 24);
-        this.prevPosition = { x: this.sprite.x, y: this.sprite.y };
+        this.prevPosition = {x: this.sprite.x, y: this.sprite.y};
         this.blocked = this.sprite.body.blocked;
     }
 
@@ -94,7 +94,7 @@ class Character {
     }
 }
 
-function isBetween(expected, xval, yval, error=0) {
+function isBetween(expected, xval, yval, error = 0) {
     if (xval < yval) {
         return xval - error <= expected && expected <= yval + error;
     }

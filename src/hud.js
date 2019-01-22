@@ -10,12 +10,12 @@ class Hud extends Phaser.Scene {
 
     create() {
 
-        this.hpText = this.add.text(20, 20, 'Health:'+ player.stats.hp, {
+        this.hpText = this.add.text(20, 20, 'Health:' + player.stats.hp, {
             fill: '#000',
             fontSize: '30px',
             fontFamily: 'Comic Sans MS'
         });
-        this.powerText = this.add.text(20, 50, 'Power:'+ player.stats.power, {
+        this.powerText = this.add.text(20, 50, 'Power:' + player.stats.power, {
             fill: '#000',
             fontSize: '30px',
             fontFamily: 'Comic Sans MS'
@@ -23,14 +23,11 @@ class Hud extends Phaser.Scene {
         this.registry.events.on('changedata', this.updateData, this);
     }
 
-    updateData (parent, key, data)
-    {
-        if (key === 'hp')
-        {
+    updateData(parent, key, data) {
+        if (key === 'hp') {
             this.hpText.setText('Health: ' + data);
         }
-        else if (key === 'power')
-        {
+        else if (key === 'power') {
             this.powerText.setText('Power: ' + data);
         }
     }

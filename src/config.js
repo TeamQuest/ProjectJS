@@ -11,7 +11,8 @@ var config = {
         }
     },
     pixelArt: true,
-    scene: [MainMenu,CreateCharacter, Game, BattleScene, UIScene]
+    scene: [MainMenu,CreateCharacter, Game, BattleScene, UIScene, Inventory, Hud]
+
 };
 
 var game = new Phaser.Game(config);

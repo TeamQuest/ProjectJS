@@ -12,6 +12,11 @@ const sprites = {
     "player": null
 }
 
+const group = {
+    "eq": null,
+    "inventory": null
+}
+
 let musicOn = true;
 let music = null;
 let enemies = null;
@@ -48,26 +53,96 @@ class Game extends Phaser.Scene {
             key: 'map',
             url: Assets.TILES_JSON,
         });
+
+        eqPreload(this);
     }
 
     create() {
         console.log('Starting up the game ...')
-        // prepareMusic(this);
+
+        prepareMusic(this);
 
         prepareAnimations(this);
         setupWorldMap(this);
         createPlayer(this);
+        prepareSharedVariables(this);
         // drawColliders(this);
         setCamera(this);
         prepareKeyDownListeners(this);
 
-        prepareInteractionWithEnemies(this)
+        prepareInteractionWithEnemies(this);
+
+        createHud(this);
     }
 
     update(time, delta) {
         player.update();
+        this.physics.add.overlap(player.sprite, group.eq, collectEq, null, this);
     }
 
+}
+
+function prepareSharedVariables(that) {
+    that.registry.set('hp', player.stats.hp);
+    that.registry.set('power', player.stats.power);
+}
+
+function createHud(that) {
+    that.scene.run('Hud', {player: player});
+}
+
+
+function eqPreload(that) {
+    that.load.spritesheet(EqInfo.POTION().name,
+        EqInfo.POTION().asset,
+        {frameWidth: 16, frameHeight: 16}
+    );
+    that.load.spritesheet(EqInfo.SWORD().name,
+        EqInfo.SWORD().asset,
+        {frameWidth: 16, frameHeight: 16}
+    );
+    that.load.spritesheet(EqInfo.SILVER_KEY().name,
+        EqInfo.SILVER_KEY().asset,
+        {frameWidth: 16, frameHeight: 16}
+    );
+    that.load.spritesheet(EqInfo.GOLD_KEY().name,
+        EqInfo.GOLD_KEY().asset,
+        {frameWidth: 16, frameHeight: 16}
+    );
+    that.load.spritesheet(EqInfo.APPLE().name,
+        EqInfo.APPLE().asset,
+        {frameWidth: 16, frameHeight: 16}
+    );
+    that.load.spritesheet(EqInfo.POIS_LAG().name,
+        EqInfo.POIS_LAG().asset,
+        {frameWidth: 16, frameHeight: 16}
+    );
+    that.load.spritesheet(EqInfo.SPECIAL_MARKER().name,
+        EqInfo.SPECIAL_MARKER().asset,
+        {frameWidth: 16, frameHeight: 16}
+    );
+    that.load.spritesheet(EqInfo.ARMOR().name,
+        EqInfo.ARMOR().asset,
+        {frameWidth: 16, frameHeight: 16}
+    );
+}
+
+function prepareEqOnMap(that) {
+    group.eq = that.physics.add.group();
+    group.eq.create(200, 300, EqInfo.POTION().name, 0);
+    group.eq.create(600, 500, EqInfo.POTION().name, 0);
+    group.eq.create(100, 150, EqInfo.SWORD().name, 0);
+    group.eq.create(100, 500, EqInfo.GOLD_KEY().name, 0);
+    group.eq.create(420, 376, EqInfo.SILVER_KEY().name, 0);
+    group.eq.create(600, 250, EqInfo.APPLE().name, 0);
+    group.eq.create(550, 200, EqInfo.POIS_LAG().name, 0);
+    group.eq.create(250, 200, EqInfo.ARMOR().name, 0);
+}
+
+function collectEq(player_s, item) {
+    item.disableBody(true, true);
+    console.log("picked " + item.texture.key);
+    player.items.push(item.texture.key);
 }
 
 function setupWorldMap(that) {
@@ -89,6 +164,7 @@ function setupWorldMap(that) {
         'character-sprites', characterGender == "male" ? "sprite32" : "sprite55"
     );
 
+    prepareEqOnMap(that);
     // Tile layer above the character
     layers.above = map.createStaticLayer('above', tileset, 0, 0);
 }
@@ -240,6 +316,11 @@ function prepareKeyDownListeners(that) {
             musicOn = true;
             music.resume()
         }
+    });
+
+    that.input.keyboard.on('keydown_I', function (event) {
+        that.scene.pause('Game');
+        that.scene.run('Inventory', {player: player});
     });
 }
 

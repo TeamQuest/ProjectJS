@@ -28,14 +28,12 @@ class Character {
         this.blocked = this.sprite.body.blocked;
     }
 
-    removeItem(itemName)
-    {
+    removeItem(itemName) {
         const index = this.items.indexOf(itemName);
         this.items.splice(index, 1);
     }
 
-    removeEQ(itemName)
-    {
+    removeEQ(itemName) {
         const index = this.eq.indexOf(itemName);
         this.eq.splice(index, 1);
     }

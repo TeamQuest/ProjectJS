@@ -1,7 +1,6 @@
 class Character {
     constructor(name) {
         this.name = name;
-        this.hp = 100;
         this.speed = 100;
         this.isMoving = false;
         this.destination = {
@@ -10,6 +9,12 @@ class Character {
         };
         this.prevPosition = null;  // initialized with Sprite
         this.blocked = null;  // initialized with Sprite
+        this.items = [];
+        this.eq = [];
+        this.stats = {
+            hp: 100,
+            power: 10
+        }
     }
 
     attachSprite(sprite) {
@@ -19,8 +24,18 @@ class Character {
         this.sprite.setCollideWorldBounds(true);
         this.sprite.body.setSize(16, 8);
         this.sprite.body.setOffset(8, 24);
-        this.prevPosition = { x: this.sprite.x, y: this.sprite.y };
+        this.prevPosition = {x: this.sprite.x, y: this.sprite.y};
         this.blocked = this.sprite.body.blocked;
+    }
+
+    removeItem(itemName) {
+        const index = this.items.indexOf(itemName);
+        this.items.splice(index, 1);
+    }
+
+    removeEQ(itemName) {
+        const index = this.eq.indexOf(itemName);
+        this.eq.splice(index, 1);
     }
 
     attachController(controller) {
@@ -79,7 +94,7 @@ class Character {
     }
 }
 
-function isBetween(expected, xval, yval, error=0) {
+function isBetween(expected, xval, yval, error = 0) {
     if (xval < yval) {
         return xval - error <= expected && expected <= yval + error;
     }

@@ -22,6 +22,7 @@ let music = null;
 let enemies = null;
 let enemy = null;
 let camera = null;
+let registry = null;
 
 // Draws AABB box of the player (DEBUG)
 function drawPlayerCollider() {
@@ -77,22 +78,15 @@ class Game extends Phaser.Scene {
         createHud(this);
 
         // this.sys.events.on('wake', this.wake, this);
-
-
     }
-
-
-
     update(time, delta) {
         player.update();
         this.physics.add.overlap(player.sprite, group.eq, collectEq, null, this);
     }
-
-
-
 }
 
 function prepareSharedVariables(that) {
+    registry = that.registry;
     that.registry.set('hp', player.stats.hp);
     that.registry.set('power', player.stats.power);
 }
@@ -346,8 +340,8 @@ function prepareInteractionWithEnemies(that) {
         obj.body.width = object.width + 10; //body of the physics body
         obj.body.height = object.height + 10;
         obj.name = object.name;
-        obj.hp = object.hp;
-        obj.dmg = object.dmg;
+        obj.dmg = object.properties[0].value;
+        obj.hp = object.properties[1].value;
     });
     overlapObjectsGroup.refresh(); //physics body needs to refresh
 

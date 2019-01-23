@@ -38,7 +38,7 @@ var BattleScene = new Phaser.Class({
 
         // var enemy = new Enemy(this, 125, 125, this.enemy.name, null, this.enemy.name, this.enemy.hp, this.enemy.dmg);
         // console.log("name " + JSON.stringify(enemy))
-        var metEnemy = new Enemy(this, 125, 125, enemy.name, null, enemy.name, 20, enemy.dmg);
+        var metEnemy = new Enemy(this, 125, 125, enemy.name, null, enemy.name, enemy.hp, enemy.dmg);
         this.add.existing(metEnemy);
 
         // var enemy2 = new Enemy(this, 125, 250, 'enemy', null, "enemy2", 50, 3);

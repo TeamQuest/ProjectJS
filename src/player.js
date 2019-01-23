@@ -99,8 +99,6 @@ class Character {
         enemy = enemyMeet;
         camera.shake(300);
         player.setVelocity(0);
-        // this.scene.switch('BattleScene');
-        // enemyMeet.destroy();
 
         this.time.addEvent({
             delay: 300, callback: () => {

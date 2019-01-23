@@ -20,7 +20,11 @@ var Unit = new Phaser.Class({
         if(target.living) {
             target.takeDamage(this.damage);
             console.log(this.type + " attacks " + target.type + " for " + this.damage + " damage");
-            // this.scene.events.emit("Message", this.type + " attacks " + target.type + " for " + this.damage + " damage");
+            if(target.type  === player.name){
+                heroHP = registry.get('hp');
+                registry.set('hp', heroHP - this.damage);
+            }
+            this.scene.events.emit("Message", this.type + " attacks " + target.type + " for " + this.damage + " damage");
         }
     },
     takeDamage: function(damage) {

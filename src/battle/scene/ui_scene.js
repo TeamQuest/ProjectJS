@@ -11,6 +11,17 @@ var UIScene = new Phaser.Class({
 
     create: function ()
     {
+
+        this.graphics = this.add.graphics();
+        this.graphics.lineStyle(1, 0xffffff);
+        this.graphics.fillStyle(0x031f4c, 1);
+        this.graphics.strokeRect(5, 375, 225, 250);
+        this.graphics.fillRect(5, 375, 225, 250);
+        this.graphics.strokeRect(237.5, 375, 225, 250);
+        this.graphics.fillRect(237.5, 375, 225, 250);
+        this.graphics.strokeRect(470, 375, 325, 250);
+        this.graphics.fillRect(470, 375, 325, 250);
+
         // basic container to hold all menus
         this.menus = this.add.container();
 
@@ -28,9 +39,6 @@ var UIScene = new Phaser.Class({
 
         this.battleScene = this.scene.get('BattleScene');
 
-        this.remapHeroes();
-        this.remapEnemies();
-
         // listen for keyboard events
         this.input.keyboard.on('keydown', this.onKeyInput, this);
 
@@ -40,10 +48,21 @@ var UIScene = new Phaser.Class({
 
         this.events.on("Enemy", this.onEnemy, this);
 
-        this.battleScene.nextTurn();
+        // when the scene receives wake event
+        this.sys.events.on('wake', this.createMenu, this);
 
         this.message = new Message(this, this.battleScene.events);
         this.add.existing(this.message);
+
+        this.createMenu();
+    },
+    createMenu: function() {
+        // map hero menu items to heroes
+        this.remapHeroes();
+        // map enemies menu items to enemies
+        this.remapEnemies();
+        // first move
+        this.battleScene.nextTurn();
     },
     remapHeroes: function() {
         var heroes = this.battleScene.heroes;
@@ -54,7 +73,7 @@ var UIScene = new Phaser.Class({
         this.enemiesMenu.remap(enemies);
     },
     onKeyInput: function(event) {
-        if(this.currentMenu) {
+        if(this.currentMenu && this.currentMenu.selected) {
             if(event.code === "ArrowUp") {
                 this.currentMenu.moveSelectionUp();
             } else if(event.code === "ArrowDown") {

@@ -8,13 +8,29 @@ var Unit = new Phaser.Class({
             this.type = type;
             this.maxHp = this.hp = hp;
             this.damage = damage; // default damage
+            this.living = true;
+            this.menuItem = null;
         },
-    attack: function (target) {
-        target.takeDamage(this.damage);
-        // this.scene.events.emit("Message", this.type + " attacks " + target.type + " for " + this.damage + " damage");
-        console.log(this.type + " attacks " + target.type + " for " + this.damage + " damage");
+    // we will use this to notify the menu item when the unit is dead
+    setMenuItem: function(item) {
+        this.menuItem = item;
     },
-    takeDamage: function (damage) {
+    // attack the target unit
+    attack: function(target) {
+        if(target.living) {
+            target.takeDamage(this.damage);
+            console.log(this.type + " attacks " + target.type + " for " + this.damage + " damage");
+            // this.scene.events.emit("Message", this.type + " attacks " + target.type + " for " + this.damage + " damage");
+        }
+    },
+    takeDamage: function(damage) {
         this.hp -= damage;
+        if(this.hp <= 0) {
+            this.hp = 0;
+            this.menuItem.unitKilled();
+            this.living = false;
+            this.visible = false;
+            this.menuItem = null;
+        }
     }
 });

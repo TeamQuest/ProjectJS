@@ -94,13 +94,18 @@ class Character {
         this.prevPosition.y = this.sprite.y;
     }
 
-    onMeetEnemy() {
+    onMeetEnemy(player, object) {
 
-        // shake the world
         camera.shake(300);
-
-        // start battle
-        this.scene.start('BattleScene');
+        player.setVelocity(0);
+        object.destroy();
+        this.time.addEvent({
+            delay: 300, callback: () => {
+                this.isMoving = false;
+                // start battle
+                this.scene.switch('BattleScene');
+            }, callbackScope: this
+        });
     }
 }
 
@@ -112,8 +117,6 @@ function isBetween(expected, xval, yval, error = 0) {
         return yval - error <= expected && expected <= xval + error;
     }
 }
-
-
 
 
 // Consider using: `export default Character;` (JS ES6)

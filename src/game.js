@@ -55,6 +55,8 @@ class Game extends Phaser.Scene {
         });
 
         eqPreload(this);
+
+        console.log("preload");
     }
 
     create() {
@@ -73,12 +75,20 @@ class Game extends Phaser.Scene {
         prepareInteractionWithEnemies(this);
 
         createHud(this);
+
+        // this.sys.events.on('wake', this.wake, this);
+
+
     }
+
+
 
     update(time, delta) {
         player.update();
         this.physics.add.overlap(player.sprite, group.eq, collectEq, null, this);
     }
+
+
 
 }
 
@@ -335,9 +345,9 @@ function prepareInteractionWithEnemies(that) {
         obj.setOrigin(0); //the positioning was off, and B3L7 mentioned the default was 0.5
         obj.body.width = object.width + 10; //body of the physics body
         obj.body.height = object.height + 10;
+        obj.name = object.name;
     });
     overlapObjectsGroup.refresh(); //physics body needs to refresh
-    console.log(overlapObjectsGroup);
 
     // add interaction between enemy and player
     that.physics.add.overlap(player.sprite, overlapObjectsGroup, player.onMeetEnemy, null, that);

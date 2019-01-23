@@ -8,13 +8,17 @@ var BattleScene = new Phaser.Class({
             Phaser.Scene.call(this, {key: 'BattleScene'});
         },
 
-    init: function (data) {
-        this.enemy = data.enemy;
+    switch: function () {
+        // this.enemy = data.enemy;
     },
 
     preload: function () {
         // load resources
-        this.load.image('enemy', 'assets/enemies/charizard.png');
+        this.load.image('charizard', 'assets/enemies/charizard.png');
+        this.load.image('fat_guy', 'assets/enemies/fat_guy.png');
+        this.load.image('bat', 'assets/enemies/bat.png');
+        this.load.image('slime', 'assets/enemies/slime.png');
+        this.load.image('ghost', 'assets/enemies/ghost.png');
     },
 
     create: function () {
@@ -22,7 +26,6 @@ var BattleScene = new Phaser.Class({
         this.scene.launch('UIScene');
 
         this.cameras.main.setBackgroundColor('rgba(0, 200, 0, 0.5)');
-
 
         this.startBattle();
 
@@ -33,8 +36,10 @@ var BattleScene = new Phaser.Class({
         var playerCharacter = new PlayerCharacter(this, 625, 125, 'character-sprites', 1, player.name, player.hp, player.dmg);
         this.add.existing(playerCharacter);
 
-        var enemy = new Enemy(this, 125, 125, 'enemy', null, "enemy1", 50, 3);
-        this.add.existing(enemy);
+        // var enemy = new Enemy(this, 125, 125, this.enemy.name, null, this.enemy.name, this.enemy.hp, this.enemy.dmg);
+        // console.log("name " + JSON.stringify(enemy))
+        var metEnemy = new Enemy(this, 125, 125, enemy.name, null, enemy.name, 20, enemy.dmg);
+        this.add.existing(metEnemy);
 
         // var enemy2 = new Enemy(this, 125, 250, 'enemy', null, "enemy2", 50, 3);
         // this.add.existing(enemy2);
@@ -42,7 +47,7 @@ var BattleScene = new Phaser.Class({
         // array with heroes
         this.heroes = [playerCharacter];
         // array with enemies
-        this.enemies = [enemy];
+        this.enemies = [metEnemy];
         // array with both parties, who will attack
         this.units = this.heroes.concat(this.enemies);
         // current active unit
@@ -70,12 +75,8 @@ var BattleScene = new Phaser.Class({
             this.events.emit("PlayerSelect", this.index);
         } else { // else if its enemy unit
             // pick random living hero to be attacked
-            var r;
-            do {
-                r = Math.floor(Math.random() * this.heroes.length);
-            } while (!this.heroes[r].living)
             // call the enemy's attack function
-            this.units[this.index].attack(this.heroes[r]);
+            this.units[this.index].attack(this.heroes[0]);
             // add timer for the next turn, so will have smooth gameplay
             this.time.addEvent({delay: 3000, callback: this.nextTurn, callbackScope: this});
         }
@@ -99,10 +100,8 @@ var BattleScene = new Phaser.Class({
         }
         var gameOver = true;
         // if all heroes are dead we have game over
-        for (var i = 0; i < this.heroes.length; i++) {
-            if (this.heroes[i].living)
-                gameOver = false;
-        }
+        if (this.heroes[0].living)
+            gameOver = false;
         return victory || gameOver;
     },
     endBattle: function () {
@@ -116,13 +115,14 @@ var BattleScene = new Phaser.Class({
         this.units.length = 0;
         // sleep the UI
         this.scene.stop('UIScene');
+        this.scene.stop('BattleScene');
         // return to WorldScene and sleep current BattleScene
-        this.scene.switch('Game');
+        this.scene.wake('Game');
     },
     exitBattle: function () {
         this.scene.stop('UIScene');
-        this.scene.switch('Game');
+        this.scene.stop('BattleScene');
+        this.scene.wake('Game');
     },
 
 });
-

@@ -271,7 +271,7 @@ function prepareAnimations(that) {
 
 function createPlayer(that) {
     console.log('Creating character ...');
-    player = new Character('Unknown');
+    player = new Character('Brave Hero');
     player.attachSprite(sprites.player);
     player.attachController(that.input.keyboard.createCursorKeys());
     that.physics.add.collider(player.sprite, layers.world);
@@ -346,6 +346,8 @@ function prepareInteractionWithEnemies(that) {
         obj.body.width = object.width + 10; //body of the physics body
         obj.body.height = object.height + 10;
         obj.name = object.name;
+        obj.hp = object.hp;
+        obj.dmg = object.dmg;
     });
     overlapObjectsGroup.refresh(); //physics body needs to refresh
 

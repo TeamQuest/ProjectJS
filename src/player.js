@@ -94,18 +94,23 @@ class Character {
         this.prevPosition.y = this.sprite.y;
     }
 
-    onMeetEnemy(player, object) {
+    onMeetEnemy(player, enemyMeet) {
 
+        enemy = enemyMeet;
         camera.shake(300);
         player.setVelocity(0);
-        object.destroy();
+        // this.scene.switch('BattleScene');
+        // enemyMeet.destroy();
+
         this.time.addEvent({
             delay: 300, callback: () => {
                 this.isMoving = false;
                 // start battle
                 this.scene.switch('BattleScene');
+
             }, callbackScope: this
         });
+        enemy.destroy();
     }
 }
 

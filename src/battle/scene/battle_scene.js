@@ -15,7 +15,7 @@ var BattleScene = new Phaser.Class({
     preload: function () {
         // load resources
         this.load.image('charizard', 'assets/enemies/charizard.png');
-        this.load.image('fat_guy', 'assets/enemies/fat_guy.png');
+        this.load.image('skeleton', 'assets/enemies/skeleton.png');
         this.load.image('bat', 'assets/enemies/bat.png');
         this.load.image('slime', 'assets/enemies/slime.png');
         this.load.image('ghost', 'assets/enemies/ghost.png');
@@ -35,19 +35,22 @@ var BattleScene = new Phaser.Class({
     startBattle: function () {
         var playerCharacter = new PlayerCharacter(this, 625, 125, 'character-sprites', 1, player.name, player.hp, player.dmg);
         this.add.existing(playerCharacter);
+        // array with heroes
+        this.heroes = [playerCharacter];
 
-        // var enemy = new Enemy(this, 125, 125, this.enemy.name, null, this.enemy.name, this.enemy.hp, this.enemy.dmg);
-        // console.log("name " + JSON.stringify(enemy))
         var metEnemy = new Enemy(this, 125, 125, enemy.name, null, enemy.name, enemy.hp, enemy.dmg);
         this.add.existing(metEnemy);
 
-        // var enemy2 = new Enemy(this, 125, 250, 'enemy', null, "enemy2", 50, 3);
-        // this.add.existing(enemy2);
+        if (enemy.name === "skeleton") {
+            var metEnemy2 = new Enemy(this, 125, 250, enemy.name, null, enemy.name, enemy.hp, enemy.dmg);
+            this.add.existing(metEnemy2);
+            // array with enemies
+            this.enemies = [metEnemy, metEnemy2];
+        } else {
+            this.enemies = [metEnemy];
+        }
 
-        // array with heroes
-        this.heroes = [playerCharacter];
-        // array with enemies
-        this.enemies = [metEnemy];
+
         // array with both parties, who will attack
         this.units = this.heroes.concat(this.enemies);
         // current active unit

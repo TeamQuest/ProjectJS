@@ -10,6 +10,7 @@ var Unit = new Phaser.Class({
             this.damage = damage; // default damage
             this.living = true;
             this.menuItem = null;
+            this.scene = scene;
         },
     // we will use this to notify the menu item when the unit is dead
     setMenuItem: function(item) {
@@ -24,7 +25,7 @@ var Unit = new Phaser.Class({
                 heroHP = registry.get('hp');
                 registry.set('hp', heroHP - this.damage);
             }
-            this.scene.events.emit("Message", this.type + " attacks " + target.type + " for " + this.damage + " damage");
+            // this.scene.events.emit("Message", this.type + " attacks " + target.type + " for " + this.damage + " damage");
         }
     },
     takeDamage: function(damage) {

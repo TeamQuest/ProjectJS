@@ -125,25 +125,25 @@
                 {
                  "height":0,
                  "id":13,
-                 "name":"fat_guy",
+                 "name":"skeleton",
                  "point":true,
                  "properties":[
                         {
                          "name":"dmg",
                          "type":"int",
-                         "value":15
+                         "value":10
                         }, 
                         {
                          "name":"hp",
                          "type":"int",
-                         "value":50
+                         "value":30
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":743,
-                 "y":274
+                 "x":85,
+                 "y":230
                 }],
          "opacity":1,
          "type":"objectgroup",

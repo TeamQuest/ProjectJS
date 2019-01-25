@@ -13,8 +13,10 @@ class Character {
         this.eq = [];
         this.stats = {
             hp: 100,
-            power: 10
+            power: 10,
+            maxhp: 150,
         }
+        this.wantsInteraction = false;
     }
 
     attachSprite(sprite) {
@@ -26,6 +28,11 @@ class Character {
         this.sprite.body.setOffset(8, 24);
         this.prevPosition = {x: this.sprite.x, y: this.sprite.y};
         this.blocked = this.sprite.body.blocked;
+    }
+
+    hasItem(itemName) {
+        const index = this.items.indexOf(itemName);
+        return index >= 0;
     }
 
     removeItem(itemName) {
@@ -44,6 +51,7 @@ class Character {
 
     update() {
         this.handleMovement();
+        this.handleInteraction();
     }
 
     isBlocked() {
@@ -51,16 +59,44 @@ class Character {
     }
 
     moveWithStep(key, stepSizeX, stepSizeY) {
-        this.isMoving = true;
-        this.destination.x = this.sprite.x + stepSizeX;
-        this.destination.y = this.sprite.y + stepSizeY;
+        /*
+         * NOTE
+         *
+         * DISABLING THE GRID MOVEMENT.
+         * DEPRECATED THE USE OF THIS FUNCTION.
+         * LEFT FOR COMPATIBILITY WITH ANIMATIONS
+         *
+         */
+        // this.isMoving = true;
+        // this.destination.x = this.sprite.x + stepSizeX;
+        // this.destination.y = this.sprite.y + stepSizeY;
         this.sprite.anims.play(key, true);
     }
 
     hasArrived(error) {
+        if (this.prevPosition.x == this.sprite.x && this.prevPosition.y == this.sprite.y) {
+            return true;
+        }
         return !this.isMoving ||
             isBetween(this.destination.x, this.prevPosition.x, this.sprite.x, error) &&
             isBetween(this.destination.y, this.prevPosition.y, this.sprite.y, error);
+    }
+
+    handleInteraction() {
+        // Necessary to disable reacting to mashing SPACE key
+        let isInteractionExpected = !this.wantsInteraction && this.controller.space.isDown;
+        this.wantsInteraction = this.controller.space.isDown;
+
+        if (isInteractionExpected) {
+            // Hard-coded NPC interaction
+            var posx = this.sprite.x
+            var posy = this.sprite.y
+            for (var id in npcs) {
+                if (npcs[id].isClose(posx, posy)) {
+                    npcs[id].startQuest();
+                }
+            }
+        }
     }
 
     handleMovement() {

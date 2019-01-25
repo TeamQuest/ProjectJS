@@ -80,7 +80,7 @@ class Inventory extends Phaser.Scene {
     clickHandler(pointer, item) {
 
         var itemName = item.texture.key;
-        console.log("clicked: " + itemName)
+        console.log("Clicked: " + itemName)
 
         if (itemName == "POTION") {
             var localHP = this.registry.get('hp');

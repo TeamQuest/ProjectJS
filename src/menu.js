@@ -4,7 +4,7 @@ class MainMenu extends Phaser.Scene {
         super({key: "MainMenu"});
         this.help_message =
             'Press arrows to move around\n'
-            // + 'Use `E` to interact\n'
+            + 'Use `SPACE` to interact\n'
             + 'Have fun!'
     }
 

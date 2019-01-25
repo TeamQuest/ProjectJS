@@ -13,7 +13,7 @@ var Message = new Phaser.Class({
             graphics.fillRect(-225, -37.5, 450, 75);
             this.text = this.scene.add.text(0, 0, "", {
                 fill: '#fff',
-                fontSize: '13',
+                fontSize: 13,
                 fontFamily: 'Comic Sans MS'
             });
             this.add(this.text);

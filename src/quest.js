@@ -10,7 +10,7 @@ class Quest {
 
     start() {
         if (this.isDone) {
-            console.log('I have no more quests for you.')
+            dialog('I have no more quests for you.')
             return;
         }
         if (this.isRunning) {

@@ -2,6 +2,9 @@ class Hud extends Phaser.Scene {
 
     constructor() {
         super({key: "Hud"});
+        this.dialogEvent = {
+            destroy() {}
+        };
     }
 
     init(data) {
@@ -41,11 +44,12 @@ class Hud extends Phaser.Scene {
         }
         else if (key === 'dialog') {
             this.dialogText.setText(data);
-            this.time.addEvent({
+            this.dialogEvent.destroy();
+            this.dialogEvent = this.time.addEvent({
               delay: 3500,
               callback: resetDialog,
               callbackScope: this
-            })
+            });
         }
     }
 }

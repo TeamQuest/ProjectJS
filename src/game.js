@@ -2,6 +2,8 @@ let controls;
 let player;
 let map;
 let tileset;
+let registry = null;
+const dialog = (text) => player.sprite.scene.registry.set('dialog', text);
 let graphics = null;  // for debugging
 const layers = {
     "walkable": null,
@@ -23,8 +25,7 @@ const group = {
 const quests = {
     bringPotion: Object.assign(new Quest(), {
         begin() {
-            var dialog = 'Hello, friend.\nI lost my potion\nCould you help me find it?'
-            player.sprite.scene.registry.set('dialog', dialog);
+            dialog('Hello, friend.\nI lost my potion\nCould you help me find it?');
         },
         require() {
             const itemFound = player.hasItem('POTION');
@@ -34,27 +35,21 @@ const quests = {
             return itemFound;
         },
         idle() {
-            var dialog = 'It is a red potion.\nPlease help me find it.';
-            player.sprite.scene.registry.set('dialog', dialog);
+            dialog('It is a red potion.\nPlease help me find it.');
         },
         giveReward() {
-            player.sprite.scene.registry.set('hp', player.stats.maxhp);
-            player.sprite.scene.registry.set('power', player.stats.power + 2);
-
-            var dialog = 'Aaah... You have found my potion!\nThank you. This is your reward.'
-            player.sprite.scene.registry.set('dialog', dialog);
-
+            registry.set('hp', player.stats.maxhp);
+            registry.set('power', player.stats.power + 2);
+            dialog('Aaah... You have found my potion!\nThank you. This is your reward.');
             npcs.npc1.assignQuest(quests.smallTalk);
         }
     }),
     smallTalk: Object.assign(new Quest(), {
         begin() {
-            var dialog = 'Have a good day, traveller.'
-            player.sprite.scene.registry.set('dialog', dialog);
+            dialog('Have a good day, traveller.');
         },
         giveReward() {
-            var dialog = 'Good bye, traveller.';
-            player.sprite.scene.registry.set('dialog', dialog);
+            dialog('Good bye, traveller.');
         }
     })
 }
@@ -367,6 +362,7 @@ function prepareMusic(that) {
 }
 
 function prepareKeyDownListeners(that) {
+    registry = player.sprite.scene.registry;
     that.input.keyboard.on('keydown_M', function (event) {
         if (musicOn) {
             musicOn = false;

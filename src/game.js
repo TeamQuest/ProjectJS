@@ -230,8 +230,8 @@ function prepareAnimations(that) {
                 key: 'playerLeft',
                 frames: that.anims.generateFrameNames('character-sprites', {
                     prefix: "sprite",
-                    start: 63,
-                    end: 65
+                    start: 65,
+                    end: 63
                 }),
                 frameRate: 10,
                 repeat: -1
@@ -240,8 +240,8 @@ function prepareAnimations(that) {
                 key: 'playerRight',
                 frames: that.anims.generateFrameNames('character-sprites', {
                     prefix: "sprite",
-                    start: 94,
-                    end: 96
+                    start: 96,
+                    end: 94
                 }),
                 frameRate: 10,
                 repeat: -1
@@ -250,8 +250,8 @@ function prepareAnimations(that) {
                 key: 'playerUp',
                 frames: that.anims.generateFrameNames('character-sprites', {
                     prefix: "sprite",
-                    start: 1,
-                    end: 3
+                    start: 3,
+                    end: 1
                 }),
                 frameRate: 10,
                 repeat: -1
@@ -260,8 +260,8 @@ function prepareAnimations(that) {
                 key: 'playerDown',
                 frames: that.anims.generateFrameNames('character-sprites', {
                     prefix: "sprite",
-                    start: 32,
-                    end: 34
+                    start: 34,
+                    end: 32
                 }),
                 frameRate: 10,
                 repeat: -1
@@ -273,8 +273,8 @@ function prepareAnimations(that) {
                 key: 'playerLeft',
                 frames: that.anims.generateFrameNames('character-sprites', {
                     prefix: "sprite",
-                    start: 85,
-                    end: 87
+                    start: 87,
+                    end: 85
                 }),
                 frameRate: 10,
                 repeat: -1
@@ -283,8 +283,8 @@ function prepareAnimations(that) {
                 key: 'playerRight',
                 frames: that.anims.generateFrameNames('character-sprites', {
                     prefix: "sprite",
-                    start: 108,
-                    end: 110
+                    start: 110,
+                    end: 108
                 }),
                 frameRate: 10,
                 repeat: -1
@@ -293,8 +293,8 @@ function prepareAnimations(that) {
                 key: 'playerUp',
                 frames: that.anims.generateFrameNames('character-sprites', {
                     prefix: "sprite",
-                    start: 23,
-                    end: 25
+                    start: 25,
+                    end: 23
                 }),
                 frameRate: 10,
                 repeat: -1
@@ -303,8 +303,8 @@ function prepareAnimations(that) {
                 key: 'playerDown',
                 frames: that.anims.generateFrameNames('character-sprites', {
                     prefix: "sprite",
-                    start: 54,
-                    end: 56
+                    start: 56,
+                    end: 54
                 }),
                 frameRate: 10,
                 repeat: -1

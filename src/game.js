@@ -4,6 +4,7 @@ let map;
 let tileset;
 let registry = null;
 const dialog = (text) => player.sprite.scene.registry.set('dialog', text);
+const dialogFight = (text) => player.sprite.scene.registry.set('dialogFight', text);
 let graphics = null;  // for debugging
 let musicOn = true;
 let music = null;
@@ -109,7 +110,7 @@ class Game extends Phaser.Scene {
         prepareInteractionWithEnemies(this);
 
         createHud(this);
-      
+
         setupObjectsCollision(this);
         assignQuests(this);
     }
@@ -141,6 +142,7 @@ function prepareSharedVariables(that) {
     that.registry.set('hp', player.stats.hp);
     that.registry.set('power', player.stats.power);
     that.registry.set('dialog', '');
+    that.registry.set('dialogFight', '');
 }
 
 function createHud(that) {

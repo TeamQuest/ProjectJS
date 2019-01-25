@@ -28,6 +28,12 @@ class Hud extends Phaser.Scene {
             fontSize: '20px',
             fontFamily: 'Comic Sans MS'
         });
+        this.dialogFight = this.add.text(200, 20, '', {
+            fill: '#FFF',
+            fontSize: '20px',
+            fontFamily: 'Comic Sans MS'
+        });
+
         this.registry.events.on('changedata', this.updateData, this);
 
     }
@@ -51,10 +57,22 @@ class Hud extends Phaser.Scene {
               callbackScope: this
             });
         }
+        else if (key === 'dialogFight') {
+            this.dialogFight.setText(data);
+            this.dialogEvent = this.time.addEvent({
+              delay: 10000,
+              callback: resetDialogFight,
+              callbackScope: this
+            });
+        }
     }
 }
 
 function resetDialog()
 {
   this.dialogText.setText('');
+}
+function resetDialogFight()
+{
+  this.dialogFight.setText('');
 }

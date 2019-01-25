@@ -24,8 +24,9 @@ var Message = new Phaser.Class({
     showMessage: function (text) {
         this.text.setText(text);
         this.visible = true;
-        if (this.hideEvent)
+        if (this.hideEvent) {
             this.hideEvent.remove(false);
+        }
         this.hideEvent = this.scene.time.addEvent({delay: 2000, callback: this.hideMessage, callbackScope: this});
     },
     hideMessage: function () {

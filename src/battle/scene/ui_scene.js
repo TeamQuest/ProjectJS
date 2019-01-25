@@ -81,9 +81,6 @@ var UIScene = new Phaser.Class({
             } else if (event.code === "Space" || event.code === "ArrowLeft") {
                 this.currentMenu.confirm();
             }
-            // else if (event.code === "ArrowUp") {
-            //
-            // }
         }
     },
     onPlayerSelect: function () {

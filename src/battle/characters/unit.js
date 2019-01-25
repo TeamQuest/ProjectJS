@@ -29,7 +29,6 @@ var Unit = new Phaser.Class({
                 registry.set('hp', heroHP - inflictedDmg);
                 player.stats.hp -=inflictedDmg;
             }
-            console.log("message :" +this.type + " attacks " + target.type + " for " + inflictedDmg + " damage");
             this.scene.events.emit("Message", this.type + " attacks " + target.type + " for " + inflictedDmg + " damage");
         }
     },

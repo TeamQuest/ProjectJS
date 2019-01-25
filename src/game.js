@@ -74,10 +74,8 @@ class Game extends Phaser.Scene {
     }
 
     preload() {
-
-        this.load.audio('music', ['../assets/music/music.mp3']);
-
         console.log('Preloading resources ...');
+        this.load.audio('music', ['../assets/music/music.mp3']);
         this.load.atlas('character-sprites',
             Assets.SPRITESHEET_CHARACTERS,
             Assets.SPRITESHEET_CHARACTERS_JSON

@@ -30,6 +30,11 @@ class Character {
         this.blocked = this.sprite.body.blocked;
     }
 
+    hasItem(itemName) {
+        const index = this.items.indexOf(itemName);
+        return index >= 0;
+    }
+
     removeItem(itemName) {
         const index = this.items.indexOf(itemName);
         this.items.splice(index, 1);

@@ -27,12 +27,14 @@ const quests = {
             console.log('I lost my potion\nCould you help me find it?');
         },
         require() {
-            let i = player.items.indexOf('POTION')
-            let itemExists = (i >= 0);
-            if (itemExists) {
-                player.items.splice(i, 1);
+            const itemFound = player.hasItem('POTION');
+            if (itemFound) {
+                player.removeItem('POTION');
             }
-            return itemExists;
+            return itemFound;
+        },
+        idle() {
+            console.log('It is a red potion.\nPlease help me find it.')
         },
         giveReward() {
             console.log('Aaah... You have found my potion!\nThank you.');
@@ -45,9 +47,6 @@ const quests = {
     smallTalk: Object.assign(new Quest(), {
         begin() {
             console.log('Have a good day, traveller.');
-        },
-        require() {
-            return true;
         },
         giveReward() {
             console.log('Good bye, traveller.');

@@ -25,7 +25,7 @@ class Quest {
         if (this.areTasksCompleted()) {
             this.finishQuest();
         } else {
-            console.log('...');
+            this.idle();
         }
     }
 
@@ -48,12 +48,13 @@ class Quest {
     require() {
         // Predicate whether requirements are satisfied
         // Should be overriden
-        return false;
+        return true;
     }
 
     idle() {
         // What happens when you interact during unfinished quest
         // Should be overriden
+        console.log('...');
         return;
     }
 

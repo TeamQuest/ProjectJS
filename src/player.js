@@ -59,9 +59,17 @@ class Character {
     }
 
     moveWithStep(key, stepSizeX, stepSizeY) {
-        this.isMoving = true;
-        this.destination.x = this.sprite.x + stepSizeX;
-        this.destination.y = this.sprite.y + stepSizeY;
+        /*
+         * NOTE
+         *
+         * DISABLING THE GRID MOVEMENT.
+         * DEPRECATED THE USE OF THIS FUNCTION.
+         * LEFT FOR COMPATIBILITY WITH ANIMATIONS
+         *
+         */
+        // this.isMoving = true;
+        // this.destination.x = this.sprite.x + stepSizeX;
+        // this.destination.y = this.sprite.y + stepSizeY;
         this.sprite.anims.play(key, true);
     }
 

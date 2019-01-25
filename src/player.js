@@ -96,6 +96,7 @@ class Character {
 
     onMeetEnemy(player, enemyMeet) {
 
+
         enemy = enemyMeet;
         camera.shake(300);
         player.setVelocity(0);

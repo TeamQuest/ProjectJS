@@ -22,14 +22,12 @@ var BattleScene = new Phaser.Class({
     },
 
     create: function () {
-        // Run UI Scene at the same time
-        this.scene.launch('UIScene');
 
         this.cameras.main.setBackgroundColor('rgba(0, 200, 0, 0.5)');
 
         this.startBattle();
 
-        this.sys.events.on('wake', this.startBattle, this);
+        // this.sys.events.on('wake', this.startBattle, this);
 
     },
     startBattle: function () {
@@ -50,7 +48,6 @@ var BattleScene = new Phaser.Class({
             this.enemies = [metEnemy];
         }
 
-
         // array with both parties, who will attack
         this.units = this.heroes.concat(this.enemies);
         // current active unit
@@ -64,29 +61,31 @@ var BattleScene = new Phaser.Class({
             this.endBattle();
             return;
         }
-        do {
-            // currently active unit
-            this.index++;
-            // if there are no more units, we start again from the first one
-            if (this.index >= this.units.length) {
-                this.index = 0;
-            }
-        } while (!this.units[this.index].living);
+        // currently active unit
+        this.index++;
+        // if there are no more units, we start again from the first one
+        if (this.index >= this.units.length) {
+            this.index = 0;
+        }
+
+        // } while (!this.enemies[this.index].living);
         // if its player hero
         if (this.units[this.index] instanceof PlayerCharacter) {
             // we need the player to select action and then enemy
-            this.events.emit("PlayerSelect", this.index);
+            this.events.emit("PlayerSelect");
         } else { // else if its enemy unit
-            // pick random living hero to be attacked
             // call the enemy's attack function
-            this.units[this.index].attack(this.heroes[0]);
+            if (this.units[this.index].living && this.heroes[0].living) {
+                this.units[this.index].attack(this.heroes[0]);
+            }
             // add timer for the next turn, so will have smooth gameplay
             this.time.addEvent({delay: 3000, callback: this.nextTurn, callbackScope: this});
+            // this.nextTurn()
         }
     },
     receivePlayerSelection: function (action, target) {
-        if (action == 'attack') {
-            this.units[this.index].attack(this.enemies[target]);
+        if (action === 'attack') {
+            this.heroes[0].attack(this.enemies[target]);
         }
         this.time.addEvent({delay: 3000, callback: this.nextTurn, callbackScope: this});
     },
@@ -98,13 +97,15 @@ var BattleScene = new Phaser.Class({
         var victory = true;
         // if all enemies are dead we have victory
         for (var i = 0; i < this.enemies.length; i++) {
-            if (this.enemies[i].living)
+            if (this.enemies[i].living) {
                 victory = false;
+            }
         }
         var gameOver = true;
         // if all heroes are dead we have game over
-        if (this.heroes[0].living)
+        if (this.heroes[0].living) {
             gameOver = false;
+        }
         return victory || gameOver;
     },
     endBattle: function () {

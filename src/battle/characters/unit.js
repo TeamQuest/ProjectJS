@@ -18,6 +18,7 @@ var Unit = new Phaser.Class({
     },
     // attack the target unit
     attack: function(target) {
+        // console.log("this scene name " +JSON.stringify(scene))
         if(target.living) {
             target.takeDamage(this.damage);
             console.log(this.type + " attacks " + target.type + " for " + this.damage + " damage");
@@ -25,7 +26,7 @@ var Unit = new Phaser.Class({
                 heroHP = registry.get('hp');
                 registry.set('hp', heroHP - this.damage);
             }
-            // this.scene.events.emit("Message", this.type + " attacks " + target.type + " for " + this.damage + " damage");
+            this.scene.events.emit("Message", this.type + " attacks " + target.type + " for " + this.damage + " damage");
         }
     },
     takeDamage: function(damage) {

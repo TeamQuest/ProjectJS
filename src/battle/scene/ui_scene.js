@@ -4,13 +4,11 @@ var UIScene = new Phaser.Class({
 
     initialize:
 
-        function UIScene ()
-        {
-            Phaser.Scene.call(this, { key: 'UIScene' });
+        function UIScene() {
+            Phaser.Scene.call(this, {key: 'UIScene'});
         },
 
-    create: function ()
-    {
+    create: function () {
 
         this.graphics = this.add.graphics();
         this.graphics.lineStyle(1, 0xffffff);
@@ -56,7 +54,7 @@ var UIScene = new Phaser.Class({
 
         this.createMenu();
     },
-    createMenu: function() {
+    createMenu: function () {
         // map hero menu items to heroes
         this.remapHeroes();
         // map enemies menu items to enemies
@@ -64,37 +62,37 @@ var UIScene = new Phaser.Class({
         // first move
         this.battleScene.nextTurn();
     },
-    remapHeroes: function() {
+    remapHeroes: function () {
         var heroes = this.battleScene.heroes;
         this.heroesMenu.remap(heroes);
     },
-    remapEnemies: function() {
+    remapEnemies: function () {
         var enemies = this.battleScene.enemies;
         this.enemiesMenu.remap(enemies);
     },
-    onKeyInput: function(event) {
-        if(this.currentMenu && this.currentMenu.selected) {
-            if(event.code === "ArrowUp") {
+    onKeyInput: function (event) {
+        if (this.currentMenu && this.currentMenu.selected) {
+            if (event.code === "ArrowUp") {
                 this.currentMenu.moveSelectionUp();
-            } else if(event.code === "ArrowDown") {
+            } else if (event.code === "ArrowDown") {
                 this.currentMenu.moveSelectionDown();
-            } else if(event.code === "ArrowRight" || event.code === "Shift") {
+            } else if (event.code === "ArrowRight" || event.code === "Shift") {
 
-            } else if(event.code === "Space" || event.code === "ArrowLeft") {
+            } else if (event.code === "Space" || event.code === "ArrowLeft") {
                 this.currentMenu.confirm();
             }
         }
     },
-    onPlayerSelect: function(id) {
-        this.heroesMenu.select(id);
+    onPlayerSelect: function () {
+        this.heroesMenu.select(0);
         this.actionsMenu.select(0);
         this.currentMenu = this.actionsMenu;
     },
-    onSelectEnemies: function() {
+    onSelectEnemies: function () {
         this.currentMenu = this.enemiesMenu;
         this.enemiesMenu.select(0);
     },
-    onEnemy: function(index) {
+    onEnemy: function (index) {
         this.heroesMenu.deselect();
         this.actionsMenu.deselect();
         this.enemiesMenu.deselect();

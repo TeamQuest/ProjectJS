@@ -9,12 +9,50 @@ const layers = {
     "above": null
 }
 const sprites = {
-    "player": null
+    "player": null,
+    "npc1": null
 }
-
+// NPC objects
+const npcs = {
+    "npc1": new NPC(275, 175, { x: 258, y: 100 }, { x: 292, y: 200 })
+}
 const group = {
     "eq": null,
     "inventory": null
+}
+const quests = {
+    bringPotion: Object.assign(new Quest(), {
+        begin() {
+            console.log('Hello, friend.');
+            console.log('I lost my potion\nCould you help me find it?');
+        },
+        require() {
+            let i = player.items.indexOf('POTION')
+            let itemExists = (i >= 0);
+            if (itemExists) {
+                player.items.splice(i, 1);
+            }
+            return itemExists;
+        },
+        giveReward() {
+            console.log('Aaah... You have found my potion!\nThank you.');
+            console.log('This is your reward.');
+            player.sprite.scene.registry.set('hp', player.stats.maxhp);
+            player.sprite.scene.registry.set('power', player.stats.power + 2);
+            npcs.npc1.assignQuest(quests.smallTalk);
+        }
+    }),
+    smallTalk: Object.assign(new Quest(), {
+        begin() {
+            console.log('Have a good day, traveller.');
+        },
+        require() {
+            return true;
+        },
+        giveReward() {
+            console.log('Good bye, traveller.');
+        }
+    })
 }
 
 let musicOn = true;
@@ -65,14 +103,23 @@ class Game extends Phaser.Scene {
         setCamera(this);
         prepareKeyDownListeners(this);
         createHud(this);
-        ;
+        setupObjectsCollision(this);
+        assignQuests(this);
     }
 
     update(time, delta) {
         player.update();
-        this.physics.add.overlap(player.sprite, group.eq, collectEq, null, this);
     }
 
+}
+
+function setupObjectsCollision(that) {
+    that.physics.add.overlap(player.sprite, group.eq, collectEq, null, that);
+    that.physics.add.collider(sprites.player, sprites.npc1);
+    for (var id in npcs) {
+        sprites[id].body.immovable = true;
+        sprites[id].body.moves = false;
+    }
 }
 
 function prepareSharedVariables(that) {
@@ -134,8 +181,22 @@ function prepareEqOnMap(that) {
 
 function collectEq(player_s, item) {
     item.disableBody(true, true);
-    console.log("picked " + item.texture.key);
+    console.log("Picked " + item.texture.key);
     player.items.push(item.texture.key);
+}
+
+function displayNPCsOnMap(that) {
+    sprites.npc1 = that.physics.add.sprite(
+        npcs.npc1.position.x,
+        npcs.npc1.position.y,
+        'character-sprites', 
+        'sprite35'
+    );
+    npcs.npc1.attachSprite(sprites.npc1);
+}
+
+function assignQuests(that) {
+    npcs.npc1.assignQuest(quests.bringPotion);
 }
 
 function setupWorldMap(that) {
@@ -151,6 +212,8 @@ function setupWorldMap(that) {
     layers.world.setCollisionByProperty({collides: true});
     // Player's sprite must be drawn between two layers
 
+    // NPCs have to be drawn before the player
+    displayNPCsOnMap(that);
     sprites.player = that.physics.add.sprite(
         Constants.PLAYER_SPAWN_X,
         Constants.PLAYER_SPAWN_Y,

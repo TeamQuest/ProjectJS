@@ -80,7 +80,7 @@ class Character {
             var posy = this.sprite.y
             for (var id in npcs) {
                 if (npcs[id].isClose(posx, posy)) {
-                    npcs.npc1.startQuest();
+                    npcs[id].startQuest();
                 }
             }
         }

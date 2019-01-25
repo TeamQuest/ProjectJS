@@ -20,8 +20,6 @@ class Hud extends Phaser.Scene {
             fontFamily: 'Comic Sans MS'
         });
         this.registry.events.on('changedata', this.updateData, this);
-        this.currentHP = player.stats.hp;
-        this.currentPower = player.stats.power;
     }
 
     update(time, delta) {

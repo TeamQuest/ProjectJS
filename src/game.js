@@ -23,8 +23,8 @@ const group = {
 const quests = {
     bringPotion: Object.assign(new Quest(), {
         begin() {
-            console.log('Hello, friend.');
-            console.log('I lost my potion\nCould you help me find it?');
+            var dialog = 'Hello, friend.\nI lost my potion\nCould you help me find it?'
+            player.sprite.scene.registry.set('dialog', dialog);
         },
         require() {
             const itemFound = player.hasItem('POTION');
@@ -34,22 +34,27 @@ const quests = {
             return itemFound;
         },
         idle() {
-            console.log('It is a red potion.\nPlease help me find it.')
+            var dialog = 'It is a red potion.\nPlease help me find it.';
+            player.sprite.scene.registry.set('dialog', dialog);
         },
         giveReward() {
-            console.log('Aaah... You have found my potion!\nThank you.');
-            console.log('This is your reward.');
             player.sprite.scene.registry.set('hp', player.stats.maxhp);
             player.sprite.scene.registry.set('power', player.stats.power + 2);
+
+            var dialog = 'Aaah... You have found my potion!\nThank you. This is your reward.'
+            player.sprite.scene.registry.set('dialog', dialog);
+
             npcs.npc1.assignQuest(quests.smallTalk);
         }
     }),
     smallTalk: Object.assign(new Quest(), {
         begin() {
-            console.log('Have a good day, traveller.');
+            var dialog = 'Have a good day, traveller.'
+            player.sprite.scene.registry.set('dialog', dialog);
         },
         giveReward() {
-            console.log('Good bye, traveller.');
+            var dialog = 'Good bye, traveller.';
+            player.sprite.scene.registry.set('dialog', dialog);
         }
     })
 }
@@ -122,6 +127,7 @@ function setupObjectsCollision(that) {
 function prepareSharedVariables(that) {
     that.registry.set('hp', player.stats.hp);
     that.registry.set('power', player.stats.power);
+    that.registry.set('dialog', '');
 }
 
 function createHud(that) {
@@ -186,7 +192,7 @@ function displayNPCsOnMap(that) {
     sprites.npc1 = that.physics.add.sprite(
         npcs.npc1.position.x,
         npcs.npc1.position.y,
-        'character-sprites', 
+        'character-sprites',
         'sprite35'
     );
     npcs.npc1.attachSprite(sprites.npc1);

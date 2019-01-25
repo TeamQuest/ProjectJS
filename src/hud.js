@@ -19,7 +19,14 @@ class Hud extends Phaser.Scene {
             fontSize: '30px',
             fontFamily: 'Comic Sans MS'
         });
+
+        this.dialogText = this.add.text(300, 400, '', {
+            fill: '#000',
+            fontSize: '20px',
+            fontFamily: 'Comic Sans MS'
+        });
         this.registry.events.on('changedata', this.updateData, this);
+
     }
 
     update(time, delta) {
@@ -32,5 +39,18 @@ class Hud extends Phaser.Scene {
         else if (key === 'power') {
             this.powerText.setText('Power: ' + data);
         }
+        else if (key === 'dialog') {
+            this.dialogText.setText(data);
+            this.time.addEvent({
+              delay: 3500,
+              callback: resetDialog,
+              callbackScope: this
+            })
+        }
     }
+}
+
+function resetDialog()
+{
+  this.dialogText.setText('');
 }

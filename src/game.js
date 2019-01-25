@@ -109,13 +109,21 @@ class Game extends Phaser.Scene {
         prepareInteractionWithEnemies(this);
 
         createHud(this);
-
+      
         setupObjectsCollision(this);
         assignQuests(this);
-
     }
     update(time, delta) {
         player.update();
+    }
+}
+
+function setupObjectsCollision(that) {
+    that.physics.add.overlap(player.sprite, group.eq, collectEq, null, that);
+    that.physics.add.collider(sprites.player, sprites.npc1);
+    for (var id in npcs) {
+        sprites[id].body.immovable = true;
+        sprites[id].body.moves = false;
     }
 }
 

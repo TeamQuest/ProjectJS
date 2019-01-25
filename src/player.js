@@ -145,7 +145,7 @@ class Character {
 
             }, callbackScope: this
         });
-        enemy.destroy();
+        enemyMeet.destroy();
     }
 }
 

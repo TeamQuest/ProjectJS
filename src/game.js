@@ -91,8 +91,6 @@ class Game extends Phaser.Scene {
         });
 
         eqPreload(this);
-
-        console.log("preload");
     }
 
     create() {
@@ -115,7 +113,6 @@ class Game extends Phaser.Scene {
         setupObjectsCollision(this);
         assignQuests(this);
 
-        // this.sys.events.on('wake', this.wake, this);
     }
     update(time, delta) {
         player.update();

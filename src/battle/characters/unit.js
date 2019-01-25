@@ -18,7 +18,6 @@ var Unit = new Phaser.Class({
     },
     // attack the target unit
     attack: function(target) {
-        // console.log("this scene name " +JSON.stringify(scene))
         if(target.living) {
 
             let tenPercDmg = this.damage * 0.2;
@@ -28,7 +27,9 @@ var Unit = new Phaser.Class({
             if(target.type  === player.name){
                 heroHP = registry.get('hp');
                 registry.set('hp', heroHP - inflictedDmg);
+                player.stats.hp -=inflictedDmg;
             }
+            console.log("message :" +this.type + " attacks " + target.type + " for " + inflictedDmg + " damage");
             this.scene.events.emit("Message", this.type + " attacks " + target.type + " for " + inflictedDmg + " damage");
         }
     },

@@ -30,17 +30,18 @@ var BattleScene = new Phaser.Class({
 
         this.startBattle();
 
-        // this.sys.events.on('wake', this.startBattle, this);
+        this.sys.events.on('wake', this.startBattle, this);
 
     },
     startBattle: function () {
-        var playerCharacter;
+        let whichFace;
         if (characterGender == "male") {
-            playerCharacter = new PlayerCharacter(this, 625, 125, 'male_face', 1, player.name, player.hp, player.dmg);
+            whichFace = 'male_face';
         } else {
-            playerCharacter = new PlayerCharacter(this, 625, 125, 'female_face', 1, player.name, player.hp, player.dmg);
+            whichFace = 'female_face';
         }
 
+        let playerCharacter = new PlayerCharacter(this, 625, 125, whichFace, 1, player.name, player.stats.hp, player.stats.power);
 
         this.add.existing(playerCharacter);
         // array with heroes
@@ -77,8 +78,6 @@ var BattleScene = new Phaser.Class({
         if (this.index >= this.units.length) {
             this.index = 0;
         }
-
-        // } while (!this.enemies[this.index].living);
         // if its player hero
         if (this.units[this.index] instanceof PlayerCharacter) {
             // we need the player to select action and then enemy
@@ -132,6 +131,7 @@ var BattleScene = new Phaser.Class({
         this.scene.stop('BattleScene');
         // return to WorldScene and sleep current BattleScene
         this.scene.wake('Game');
+
     },
     exitBattle: function () {
         this.scene.stop('UIScene');

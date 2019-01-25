@@ -14,11 +14,14 @@ var BattleScene = new Phaser.Class({
 
     preload: function () {
         // load resources
-        this.load.image('charizard', 'assets/enemies/charizard.png');
+        this.load.image('angry_flower', 'assets/enemies/angry_flower.png');
         this.load.image('skeleton', 'assets/enemies/skeleton.png');
         this.load.image('bat', 'assets/enemies/bat.png');
         this.load.image('slime', 'assets/enemies/slime.png');
         this.load.image('ghost', 'assets/enemies/ghost.png');
+
+        this.load.image('male_face', 'assets/characters/male_face.png');
+        this.load.image('female_face', 'assets/characters/female_face.png');
     },
 
     create: function () {
@@ -31,7 +34,14 @@ var BattleScene = new Phaser.Class({
 
     },
     startBattle: function () {
-        var playerCharacter = new PlayerCharacter(this, 625, 125, 'character-sprites', 1, player.name, player.hp, player.dmg);
+        var playerCharacter;
+        if (characterGender == "male") {
+            playerCharacter = new PlayerCharacter(this, 625, 125, 'male_face', 1, player.name, player.hp, player.dmg);
+        } else {
+            playerCharacter = new PlayerCharacter(this, 625, 125, 'female_face', 1, player.name, player.hp, player.dmg);
+        }
+
+
         this.add.existing(playerCharacter);
         // array with heroes
         this.heroes = [playerCharacter];

@@ -5,6 +5,9 @@ class Hud extends Phaser.Scene {
         this.dialogEvent = {
             destroy() {}
         };
+        this.dialogFightEvent = {
+            destroy() {}
+        };
     }
 
     init(data) {
@@ -59,8 +62,9 @@ class Hud extends Phaser.Scene {
         }
         else if (key === 'dialogFight') {
             this.dialogFight.setText(data);
-            this.dialogEvent = this.time.addEvent({
-              delay: 10000,
+            this.dialogFightEvent.destroy();
+            this.dialogFightEvent = this.time.addEvent({
+              delay: 3500,
               callback: resetDialogFight,
               callbackScope: this
             });
@@ -68,11 +72,10 @@ class Hud extends Phaser.Scene {
     }
 }
 
-function resetDialog()
-{
+function resetDialog() {
   this.dialogText.setText('');
 }
-function resetDialogFight()
-{
+
+function resetDialogFight() {
   this.dialogFight.setText('');
 }

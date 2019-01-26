@@ -113,7 +113,7 @@
                         {
                          "name":"hp",
                          "type":"int",
-                         "value":30
+                         "value":50
                         }],
                  "rotation":0,
                  "type":"",
@@ -136,7 +136,7 @@
                         {
                          "name":"hp",
                          "type":"int",
-                         "value":65
+                         "value":75
                         }],
                  "rotation":0,
                  "type":"",

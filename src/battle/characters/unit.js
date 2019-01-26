@@ -18,7 +18,6 @@ class Unit extends Phaser.GameObjects.Sprite {
     // attack the target unit
     attack(target) {
         if (target.living) {
-
             let tenPercDmg = this.damage * 0.2;
             let minDmg = this.damage - tenPercDmg;
             let inflictedDmg = Math.floor(Math.random() * (this.damage - minDmg + 1) + minDmg);
@@ -28,7 +27,6 @@ class Unit extends Phaser.GameObjects.Sprite {
                 registry.set('hp', heroHP - inflictedDmg);
                 player.stats.hp -= inflictedDmg;
             }
-            //  this.scene.events.emit("Message", this.type + " attacks " + target.type + " for " + inflictedDmg + " damage");
             dialogFight(this.type + " attacks " + target.type + " for " + inflictedDmg + " damage");
         }
     }

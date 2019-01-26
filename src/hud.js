@@ -3,7 +3,8 @@ class Hud extends Phaser.Scene {
     constructor() {
         super({key: "Hud"});
         this.dialogEvent = {
-            destroy() {}
+            destroy() {
+            }
         };
     }
 
@@ -35,7 +36,6 @@ class Hud extends Phaser.Scene {
         });
 
         this.registry.events.on('changedata', this.updateData, this);
-
     }
 
     update(time, delta) {
@@ -52,27 +52,26 @@ class Hud extends Phaser.Scene {
             this.dialogText.setText(data);
             this.dialogEvent.destroy();
             this.dialogEvent = this.time.addEvent({
-              delay: 3500,
-              callback: resetDialog,
-              callbackScope: this
+                delay: 3500,
+                callback: resetDialog,
+                callbackScope: this
             });
         }
         else if (key === 'dialogFight') {
             this.dialogFight.setText(data);
             this.dialogEvent = this.time.addEvent({
-              delay: 10000,
-              callback: resetDialogFight,
-              callbackScope: this
+                delay: 1500,
+                callback: resetDialogFight,
+                callbackScope: this
             });
         }
     }
 }
 
-function resetDialog()
-{
-  this.dialogText.setText('');
+function resetDialog() {
+    this.dialogText.setText('');
 }
-function resetDialogFight()
-{
-  this.dialogFight.setText('');
+
+function resetDialogFight() {
+    this.dialogFight.setText('');
 }

@@ -21,7 +21,7 @@ class Unit extends Phaser.GameObjects.Sprite {
             let tenPercDmg = this.damage * 0.2;
             let minDmg = this.damage - tenPercDmg;
             let inflictedDmg = Math.floor(Math.random() * (this.damage - minDmg + 1) + minDmg);
-            target.takeDamage(inflictedDmg);
+            target.takeDamage(inflictedDmg, target);
             if (target.type === player.name) {
                 player.stats.hp -= inflictedDmg
                 registry.set('hp', player.stats.hp);
@@ -30,11 +30,13 @@ class Unit extends Phaser.GameObjects.Sprite {
         }
     }
 
-    takeDamage(damage) {
+    takeDamage(damage, target) {
         this.hp -= damage;
         if (this.hp <= 0) {
             this.hp = 0;
-            this.menuItem.unitKilled();
+            if (target.type !== player.name) {
+                this.menuItem.unitKilled();
+            }
             this.living = false;
             this.visible = false;
             this.menuItem = null;

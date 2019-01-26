@@ -9,25 +9,21 @@ class UIScene extends Phaser.Scene {
         this.graphics = this.add.graphics();
         this.graphics.lineStyle(1, 0xffffff);
         this.graphics.fillStyle(0x031f4c, 1);
-        this.graphics.strokeRect(5, 375, 225, 250);
-        this.graphics.fillRect(5, 375, 225, 250);
-        this.graphics.strokeRect(237.5, 375, 225, 250);
-        this.graphics.fillRect(237.5, 375, 225, 250);
-        this.graphics.strokeRect(470, 375, 325, 250);
-        this.graphics.fillRect(470, 375, 325, 250);
+        this.graphics.strokeRect(5, 375, 390, 250);
+        this.graphics.fillRect(5, 375, 390, 250);
+        this.graphics.strokeRect(400, 375, 390, 250);
+        this.graphics.fillRect(400, 375, 390, 250);
 
         // basic container to hold all menus
         this.menus = this.add.container();
-
-        this.heroesMenu = new HeroesMenu(487.5, 382.5, this);
-        this.actionsMenu = new ActionsMenu(250, 382.5, this);
+        //
+        this.actionsMenu = new ActionsMenu(420, 382.5, this);
         this.enemiesMenu = new EnemiesMenu(20, 382.5, this);
 
         // the currently selected menu
         this.currentMenu = this.actionsMenu;
 
         // add menus to the container
-        this.menus.add(this.heroesMenu);
         this.menus.add(this.actionsMenu);
         this.menus.add(this.enemiesMenu);
 
@@ -54,17 +50,10 @@ class UIScene extends Phaser.Scene {
     }
 
     createMenu() {
-        // map hero menu items to heroes
-        this.remapHeroes();
         // map enemies menu items to enemies
         this.remapEnemies();
         // first move
         this.battleScene.nextTurn();
-    }
-
-    remapHeroes() {
-        var heroes = this.battleScene.heroes;
-        this.heroesMenu.remap(heroes);
     }
 
     remapEnemies() {
@@ -87,7 +76,6 @@ class UIScene extends Phaser.Scene {
     }
 
     onPlayerSelect() {
-        this.heroesMenu.select(0);
         this.actionsMenu.select(0);
         this.currentMenu = this.actionsMenu;
     }
@@ -98,7 +86,6 @@ class UIScene extends Phaser.Scene {
     }
 
     onEnemy(index) {
-        this.heroesMenu.deselect();
         this.actionsMenu.deselect();
         this.enemiesMenu.deselect();
         this.currentMenu = null;
@@ -106,7 +93,6 @@ class UIScene extends Phaser.Scene {
     }
 
     flee() {
-        this.heroesMenu.deselect();
         this.actionsMenu.deselect();
         this.enemiesMenu.deselect();
         this.currentMenu = null;

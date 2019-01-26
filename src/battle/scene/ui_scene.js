@@ -46,6 +46,8 @@ var UIScene = new Phaser.Class({
 
         this.events.on("Enemy", this.onEnemy, this);
 
+        this.events.on("RunAway", this.runAway, this);
+
         // when the scene receives wake event
         this.sys.events.on('wake', this.createMenu, this);
 
@@ -98,5 +100,12 @@ var UIScene = new Phaser.Class({
         this.enemiesMenu.deselect();
         this.currentMenu = null;
         this.battleScene.receivePlayerSelection('attack', index);
+    },
+    runAway: function () {
+        this.heroesMenu.deselect();
+        this.actionsMenu.deselect();
+        this.enemiesMenu.deselect();
+        this.currentMenu = null;
+        this.battleScene.receivePlayerSelection('run');
     },
 });

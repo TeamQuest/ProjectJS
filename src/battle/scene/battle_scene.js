@@ -93,6 +93,9 @@ var BattleScene = new Phaser.Class({
         }
     },
     receivePlayerSelection: function (action, target) {
+        if (action === 'run') {
+            this.endBattle();
+        }
         if (action === 'attack') {
             this.heroes[0].attack(this.enemies[target]);
         }

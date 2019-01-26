@@ -11,7 +11,7 @@ var config = {
         }
     },
     pixelArt: true,
-    scene: [MainMenu,CreateCharacter, Game, BattleScene, UIScene, Inventory, Hud]
+    scene: [MainMenu, CreateCharacter, Game, BattleScene, UIScene, Inventory, Hud, EndGame]
 
 };
 

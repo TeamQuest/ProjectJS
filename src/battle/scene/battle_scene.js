@@ -66,10 +66,15 @@ class BattleScene extends Phaser.Scene {
 
     nextTurn() {
         // if we have victory or game over
-        if (this.checkEndBattle()) {
+        if (this.checkIfEnemyLives()) {
             this.endBattle();
+            this.exitBattle()
             return;
         }
+
+        // check if hero lives
+        this.isGameOver();
+
         // currently active unit
         this.index++;
         // if there are no more units, we start again from the first one
@@ -82,7 +87,7 @@ class BattleScene extends Phaser.Scene {
             this.events.emit("PlayerSelect");
         } else { // else if its enemy unit
             // call the enemy's attack function
-            if (this.units[this.index].living && this.heroes[0].living) {
+            if (this.units[this.index] != null && this.units[this.index].living && this.heroes[0].living) {
                 this.units[this.index].attack(this.heroes[0]);
             }
             // add timer for the next turn, so will have smooth gameplay
@@ -94,6 +99,7 @@ class BattleScene extends Phaser.Scene {
     receivePlayerSelection(action, target) {
         if (action === 'run') {
             this.endBattle();
+            this.exitBattle();
         }
         if (action === 'attack') {
             this.heroes[0].attack(this.enemies[target]);
@@ -106,7 +112,7 @@ class BattleScene extends Phaser.Scene {
         this.time.addEvent({delay: 2000, callback: this.exitBattle, callbackScope: this});
     }
 
-    checkEndBattle() {
+    checkIfEnemyLives() {
         var victory = true;
         // if all enemies are dead we have victory
         for (var i = 0; i < this.enemies.length; i++) {
@@ -114,12 +120,21 @@ class BattleScene extends Phaser.Scene {
                 victory = false;
             }
         }
-        var gameOver = true;
+        return victory;
+    }
+
+    isGameOver() {
+
         // if all heroes are dead we have game over
-        if (this.heroes[0].living) {
-            gameOver = false;
+        if (!this.heroes[0].living) {
+
+            this.endBattle();
+            this.scene.stop('UIScene');
+            this.scene.stop('BattleScene');
+            this.scene.stop('Game');
+            this.scene.start('EndGame');
+            music.stop();
         }
-        return victory || gameOver;
     }
 
     endBattle() {
@@ -131,12 +146,6 @@ class BattleScene extends Phaser.Scene {
             this.units[i].destroy();
         }
         this.units.length = 0;
-        // sleep the UI
-        this.scene.stop('UIScene');
-        this.scene.stop('BattleScene');
-        // return to WorldScene and sleep current BattleScene
-        this.scene.wake('Game');
-
     }
 
     exitBattle() {

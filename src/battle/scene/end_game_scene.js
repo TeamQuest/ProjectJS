@@ -5,8 +5,8 @@ class EndGame extends Phaser.Scene {
     }
 
     create() {
-        this.playButton = this.add.text(100, 150, 'YOU DIED :(!', {
-            fill: '#0f0',
+        this.endGameButton = this.add.text(100, 150, 'YOU DIED :(!', {
+            fill: '#0',
             fontSize: '50px',
             fontStyle: 'bold',
             fontFamily: 'Comic Sans MS'
@@ -16,10 +16,10 @@ class EndGame extends Phaser.Scene {
                 this.scene.start('MainMenu');
             }, this)
             .on('pointerover', function (event) {
-                this.playButton.setStyle({fill: '#ff0'});
+                this.endGameButton.setStyle({fill: '#ff0'});
             }, this)
             .on('pointerout', function (event) {
-                this.playButton.setStyle({fill: '#0f0'});
+                this.endGameButton.setStyle({fill: '#f00'});
             }, this);
     }
 }

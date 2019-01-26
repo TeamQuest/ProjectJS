@@ -6,7 +6,7 @@ class EndGame extends Phaser.Scene {
 
     create() {
         this.endGameButton = this.add.text(100, 150, 'YOU DIED :(!', {
-            fill: '#0',
+            fill: '#f00',
             fontSize: '50px',
             fontStyle: 'bold',
             fontFamily: 'Comic Sans MS'

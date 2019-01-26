@@ -23,9 +23,8 @@ class Unit extends Phaser.GameObjects.Sprite {
             let inflictedDmg = Math.floor(Math.random() * (this.damage - minDmg + 1) + minDmg);
             target.takeDamage(inflictedDmg);
             if (target.type === player.name) {
-                let heroHP = registry.get('hp');
-                registry.set('hp', heroHP - inflictedDmg);
-                player.stats.hp -= inflictedDmg;
+                player.stats.hp -= inflictedDmg
+                registry.set('hp', player.stats.hp);
             }
             dialogFight(this.type + " attacks " + target.type + " for " + inflictedDmg + " damage");
         }

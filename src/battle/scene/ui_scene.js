@@ -42,7 +42,7 @@ class UIScene extends Phaser.Scene {
 
         this.events.on("Enemy", this.onEnemy, this);
 
-        this.events.on("RunAway", this.runAway, this);
+        this.events.on("Flee", this.flee, this);
 
         // when the scene receives wake event
         this.sys.events.on('wake', this.createMenu, this);
@@ -105,11 +105,11 @@ class UIScene extends Phaser.Scene {
         this.battleScene.receivePlayerSelection('attack', index);
     }
 
-    runAway() {
+    flee() {
         this.heroesMenu.deselect();
         this.actionsMenu.deselect();
         this.enemiesMenu.deselect();
         this.currentMenu = null;
-        this.battleScene.receivePlayerSelection('run');
+        this.battleScene.receivePlayerSelection('flee');
     }
 }

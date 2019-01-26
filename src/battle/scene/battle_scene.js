@@ -97,7 +97,12 @@ class BattleScene extends Phaser.Scene {
     }
 
     receivePlayerSelection(action, target) {
-        if (action === 'run') {
+        if (action === 'flee') {
+            player.stats.hp -= 10
+            if( player.stats.hp  <=0){
+                player.stats.hp = 1;
+            }
+            registry.set('hp', player.stats.hp);
             this.endBattle();
             this.exitBattle();
         }

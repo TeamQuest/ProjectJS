@@ -1,41 +1,41 @@
-var Unit = new Phaser.Class({
-    Extends: Phaser.GameObjects.Sprite,
+class Unit extends Phaser.GameObjects.Sprite {
 
-    initialize:
+    constructor(scene, x, y, texture, frame, type, hp, damage) {
+        super(scene, x, y, texture, frame);
+        this.type = type;
+        this.maxHp = this.hp = hp;
+        this.damage = damage; // default damage
+        this.living = true;
+        this.menuItem = null;
+        this.scene = scene;
+    }
 
-        function Unit(scene, x, y, texture, frame, type, hp, damage) {
-            Phaser.GameObjects.Sprite.call(this, scene, x, y, texture, frame)
-            this.type = type;
-            this.maxHp = this.hp = hp;
-            this.damage = damage; // default damage
-            this.living = true;
-            this.menuItem = null;
-            this.scene = scene;
-        },
     // we will use this to notify the menu item when the unit is dead
-    setMenuItem: function(item) {
+    setMenuItem(item) {
         this.menuItem = item;
-    },
+    }
+
     // attack the target unit
-    attack: function(target) {
-        if(target.living) {
+    attack(target) {
+        if (target.living) {
 
             let tenPercDmg = this.damage * 0.2;
             let minDmg = this.damage - tenPercDmg;
-            let inflictedDmg = Math.floor(Math.random()*(this.damage-minDmg+1)+minDmg);
+            let inflictedDmg = Math.floor(Math.random() * (this.damage - minDmg + 1) + minDmg);
             target.takeDamage(inflictedDmg);
-            if(target.type  === player.name){
-                heroHP = registry.get('hp');
+            if (target.type === player.name) {
+                let heroHP = registry.get('hp');
                 registry.set('hp', heroHP - inflictedDmg);
-                player.stats.hp -=inflictedDmg;
+                player.stats.hp -= inflictedDmg;
             }
-          //  this.scene.events.emit("Message", this.type + " attacks " + target.type + " for " + inflictedDmg + " damage");
+            //  this.scene.events.emit("Message", this.type + " attacks " + target.type + " for " + inflictedDmg + " damage");
             dialogFight(this.type + " attacks " + target.type + " for " + inflictedDmg + " damage");
         }
-    },
-    takeDamage: function(damage) {
+    }
+
+    takeDamage(damage) {
         this.hp -= damage;
-        if(this.hp <= 0) {
+        if (this.hp <= 0) {
             this.hp = 0;
             this.menuItem.unitKilled();
             this.living = false;
@@ -43,4 +43,4 @@ var Unit = new Phaser.Class({
             this.menuItem = null;
         }
     }
-});
+}

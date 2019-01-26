@@ -1,8 +1,6 @@
-var Enemy = new Phaser.Class({
-    Extends: Unit,
+class Enemy extends Unit {
 
-    initialize:
-    function Enemy(scene, x, y, texture, frame, type, hp, damage) {
-        Unit.call(this, scene, x, y, texture, frame, type, hp, damage);
+    constructor(scene, x, y, texture, frame, type, hp, damage){
+        super(scene, x, y, texture, frame, type, hp, damage);
     }
-});
+}

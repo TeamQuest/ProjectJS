@@ -1,23 +1,20 @@
-var MenuItem = new Phaser.Class({
-    Extends: Phaser.GameObjects.Text,
+class MenuItem extends Phaser.GameObjects.Text {
 
-    initialize:
+    constructor(x, y, text, scene) {
+        super(scene, x, y, text, {color: "#ffffff", align: "left", fontSize: 15});
+    }
 
-        function MenuItem(x, y, text, scene) {
-            Phaser.GameObjects.Text.call(this, scene, x, y, text, { color: "#ffffff", align: "left", fontSize: 15});
-        },
-
-    select: function() {
+    select() {
         this.setColor("#ff0000");
-    },
+    }
 
-    deselect: function() {
+    deselect() {
         this.setColor("#ffffff");
-    },
+    }
+
     // when the associated enemy or player unit is killed
-    unitKilled: function() {
+    unitKilled() {
         this.active = false;
         this.visible = false;
     }
-
-});
+}

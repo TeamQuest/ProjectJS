@@ -1,14 +1,12 @@
-var ActionsMenu = new Phaser.Class({
-    Extends: Menu,
+class ActionsMenu extends Menu {
 
-    initialize:
+    constructor(x, y, scene) {
+        super(x, y, scene);
+        this.addMenuItem('Attack');
+        this.addMenuItem('Run');
+    }
 
-        function ActionsMenu(x, y, scene) {
-            Menu.call(this, x, y, scene);
-            this.addMenuItem('Attack');
-            this.addMenuItem('Run');
-        },
-    confirm: function () {
+    confirm() {
         if (this.menuItems[this.menuItemIndex].text === "Attack") {
             this.scene.events.emit('SelectEnemies');
         }
@@ -16,4 +14,4 @@ var ActionsMenu = new Phaser.Class({
             this.scene.events.emit('RunAway');
         }
     }
-});
+}

@@ -1,18 +1,14 @@
-var BattleScene = new Phaser.Class({
+class BattleScene extends Phaser.Scene {
 
-    Extends: Phaser.Scene,
+    constructor() {
+        super({key: 'BattleScene'});
+    }
 
-    initialize:
-
-        function BattleScene() {
-            Phaser.Scene.call(this, {key: 'BattleScene'});
-        },
-
-    switch: function () {
+    switch() {
         // this.enemy = data.enemy;
-    },
+    }
 
-    preload: function () {
+    preload() {
         // load resources
         this.load.image('angry_flower', 'assets/enemies/angry_flower.png');
         this.load.image('skeleton', 'assets/enemies/skeleton.png');
@@ -22,9 +18,9 @@ var BattleScene = new Phaser.Class({
 
         this.load.image('male_face', 'assets/characters/male_face.png');
         this.load.image('female_face', 'assets/characters/female_face.png');
-    },
+    }
 
-    create: function () {
+    create() {
 
         this.cameras.main.setBackgroundColor('rgba(0, 200, 0, 0.5)');
 
@@ -32,8 +28,9 @@ var BattleScene = new Phaser.Class({
 
         this.sys.events.on('wake', this.startBattle, this);
 
-    },
-    startBattle: function () {
+    }
+
+    startBattle() {
         let whichFace;
         if (characterGender == "male") {
             whichFace = 'male_face';
@@ -65,8 +62,9 @@ var BattleScene = new Phaser.Class({
         this.index = -1;
         // Run UI Scene at the same time
         this.scene.launch('UIScene');
-    },
-    nextTurn: function () {
+    }
+
+    nextTurn() {
         // if we have victory or game over
         if (this.checkEndBattle()) {
             this.endBattle();
@@ -91,8 +89,9 @@ var BattleScene = new Phaser.Class({
             this.time.addEvent({delay: 3000, callback: this.nextTurn, callbackScope: this});
             // this.nextTurn()
         }
-    },
-    receivePlayerSelection: function (action, target) {
+    }
+
+    receivePlayerSelection(action, target) {
         if (action === 'run') {
             this.endBattle();
         }
@@ -100,12 +99,14 @@ var BattleScene = new Phaser.Class({
             this.heroes[0].attack(this.enemies[target]);
         }
         this.time.addEvent({delay: 3000, callback: this.nextTurn, callbackScope: this});
-    },
-    wake: function () {
+    }
+
+    wake() {
         this.scene.run('UIScene');
         this.time.addEvent({delay: 2000, callback: this.exitBattle, callbackScope: this});
-    },
-    checkEndBattle: function () {
+    }
+
+    checkEndBattle() {
         var victory = true;
         // if all enemies are dead we have victory
         for (var i = 0; i < this.enemies.length; i++) {
@@ -119,8 +120,9 @@ var BattleScene = new Phaser.Class({
             gameOver = false;
         }
         return victory || gameOver;
-    },
-    endBattle: function () {
+    }
+
+    endBattle() {
         // clear state, remove sprites
         this.heroes.length = 0;
         this.enemies.length = 0;
@@ -135,11 +137,12 @@ var BattleScene = new Phaser.Class({
         // return to WorldScene and sleep current BattleScene
         this.scene.wake('Game');
 
-    },
-    exitBattle: function () {
+    }
+
+    exitBattle() {
         this.scene.stop('UIScene');
         this.scene.stop('BattleScene');
         this.scene.wake('Game');
-    },
+    }
 
-});
+}

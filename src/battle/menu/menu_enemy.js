@@ -1,12 +1,10 @@
-var EnemiesMenu = new Phaser.Class({
-    Extends: Menu,
+class EnemiesMenu extends Menu {
 
-    initialize:
+    constructor(x, y, scene) {
+        super(x, y, scene);
+    }
 
-        function EnemiesMenu(x, y, scene) {
-            Menu.call(this, x, y, scene);
-        },
-    confirm: function() {
+    confirm() {
         this.scene.events.emit("Enemy", this.menuItemIndex);
     }
-});
+}

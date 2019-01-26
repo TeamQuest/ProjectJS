@@ -1,14 +1,10 @@
-var UIScene = new Phaser.Class({
+class UIScene extends Phaser.Scene {
 
-    Extends: Phaser.Scene,
+    constructor() {
+        super({key: 'UIScene'});
+    }
 
-    initialize:
-
-        function UIScene() {
-            Phaser.Scene.call(this, {key: 'UIScene'});
-        },
-
-    create: function () {
+    create() {
 
         this.graphics = this.add.graphics();
         this.graphics.lineStyle(1, 0xffffff);
@@ -55,24 +51,28 @@ var UIScene = new Phaser.Class({
         this.add.existing(this.message);
 
         this.createMenu();
-    },
-    createMenu: function () {
+    }
+
+    createMenu() {
         // map hero menu items to heroes
         this.remapHeroes();
         // map enemies menu items to enemies
         this.remapEnemies();
         // first move
         this.battleScene.nextTurn();
-    },
-    remapHeroes: function () {
+    }
+
+    remapHeroes() {
         var heroes = this.battleScene.heroes;
         this.heroesMenu.remap(heroes);
-    },
-    remapEnemies: function () {
+    }
+
+    remapEnemies() {
         var enemies = this.battleScene.enemies;
         this.enemiesMenu.remap(enemies);
-    },
-    onKeyInput: function (event) {
+    }
+
+    onKeyInput(event) {
         if (this.currentMenu && this.currentMenu.selected) {
             if (event.code === "ArrowUp") {
                 this.currentMenu.moveSelectionUp();
@@ -84,28 +84,32 @@ var UIScene = new Phaser.Class({
                 this.currentMenu.confirm();
             }
         }
-    },
-    onPlayerSelect: function () {
+    }
+
+    onPlayerSelect() {
         this.heroesMenu.select(0);
         this.actionsMenu.select(0);
         this.currentMenu = this.actionsMenu;
-    },
-    onSelectEnemies: function () {
+    }
+
+    onSelectEnemies() {
         this.currentMenu = this.enemiesMenu;
         this.enemiesMenu.select(0);
-    },
-    onEnemy: function (index) {
+    }
+
+    onEnemy(index) {
         this.heroesMenu.deselect();
         this.actionsMenu.deselect();
         this.enemiesMenu.deselect();
         this.currentMenu = null;
         this.battleScene.receivePlayerSelection('attack', index);
-    },
-    runAway: function () {
+    }
+
+    runAway() {
         this.heroesMenu.deselect();
         this.actionsMenu.deselect();
         this.enemiesMenu.deselect();
         this.currentMenu = null;
         this.battleScene.receivePlayerSelection('run');
-    },
-});
+    }
+}

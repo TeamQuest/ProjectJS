@@ -8,7 +8,7 @@ var MenuItem = new Phaser.Class({
         },
 
     select: function() {
-        this.setColor("#f8ff38");
+        this.setColor("#ff0000");
     },
 
     deselect: function() {

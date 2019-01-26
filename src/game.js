@@ -4,7 +4,14 @@ let map;
 let tileset;
 let registry = null;
 const dialog = (text) => player.sprite.scene.registry.set('dialog', text);
+const dialogFight = (text) => player.sprite.scene.registry.set('dialogFight', text);
 let graphics = null;  // for debugging
+let musicOn = true;
+let music = null;
+let enemies = null;
+let enemy = null;
+let camera = null;
+
 const layers = {
     "walkable": null,
     "world": null,
@@ -54,8 +61,6 @@ const quests = {
     })
 }
 
-let musicOn = true;
-let music = null;
 
 // Draws AABB box of the player (DEBUG)
 function drawPlayerCollider() {
@@ -91,7 +96,9 @@ class Game extends Phaser.Scene {
 
     create() {
         console.log('Starting up the game ...')
+
         prepareMusic(this);
+
         prepareAnimations(this);
         setupWorldMap(this);
         createPlayer(this);
@@ -99,15 +106,26 @@ class Game extends Phaser.Scene {
         // drawColliders(this);
         setCamera(this);
         prepareKeyDownListeners(this);
+
+        prepareInteractionWithEnemies(this);
+
         createHud(this);
+
         setupObjectsCollision(this);
         assignQuests(this);
     }
-
     update(time, delta) {
         player.update();
     }
+}
 
+function setupObjectsCollision(that) {
+    that.physics.add.overlap(player.sprite, group.eq, collectEq, null, that);
+    that.physics.add.collider(sprites.player, sprites.npc1);
+    for (var id in npcs) {
+        sprites[id].body.immovable = true;
+        sprites[id].body.moves = false;
+    }
 }
 
 function setupObjectsCollision(that) {
@@ -120,9 +138,11 @@ function setupObjectsCollision(that) {
 }
 
 function prepareSharedVariables(that) {
+    registry = that.registry;
     that.registry.set('hp', player.stats.hp);
     that.registry.set('power', player.stats.power);
     that.registry.set('dialog', '');
+    that.registry.set('dialogFight', '');
 }
 
 function createHud(that) {
@@ -315,7 +335,7 @@ function prepareAnimations(that) {
 
 function createPlayer(that) {
     console.log('Creating character ...');
-    player = new Character('Unknown');
+    player = new Character('Brave Hero');
     player.attachSprite(sprites.player);
     player.attachController(that.input.keyboard.createCursorKeys());
     that.physics.add.collider(player.sprite, layers.world);
@@ -323,7 +343,7 @@ function createPlayer(that) {
 
 function setCamera(that) {
     // Main camera
-    const camera = that.cameras.main;
+    camera = that.cameras.main;
     camera.setZoom(Constants.CAMERA_ZOOM);
     // Constrain camera with world bounds
     camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -377,4 +397,26 @@ function prepareKeyDownListeners(that) {
         that.scene.pause('Game');
         that.scene.run('Inventory', {player: player});
     });
+}
+
+function prepareInteractionWithEnemies(that) {
+
+    var enemiesArray = map.getObjectLayer('enemies')['objects']; // get all enemies
+
+    let overlapObjectsGroup = that.physics.add.staticGroup({});
+    enemiesArray.forEach(object => {
+        let obj = overlapObjectsGroup.create(object.x, object.y, 'enemy');
+        obj.setScale(object.width / 32, object.height / 32); //my tile size was 32
+        obj.setOrigin(0); //the positioning was off, and B3L7 mentioned the default was 0.5
+        obj.body.width = object.width + 10; //body of the physics body
+        obj.body.height = object.height + 10;
+        obj.name = object.name;
+        obj.dmg = object.properties[0].value;
+        obj.hp = object.properties[1].value;
+    });
+    overlapObjectsGroup.refresh(); //physics body needs to refresh
+
+    // add interaction between enemy and player
+    that.physics.add.overlap(player.sprite, overlapObjectsGroup, player.onMeetEnemy, null, that);
+
 }

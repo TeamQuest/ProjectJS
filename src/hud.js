@@ -3,7 +3,12 @@ class Hud extends Phaser.Scene {
     constructor() {
         super({key: "Hud"});
         this.dialogEvent = {
-            destroy() {}
+            destroy() {
+            }
+        };
+        this.dialogFightEvent = {
+            destroy() {
+            }
         };
     }
 
@@ -28,8 +33,13 @@ class Hud extends Phaser.Scene {
             fontSize: '20px',
             fontFamily: 'Comic Sans MS'
         });
-        this.registry.events.on('changedata', this.updateData, this);
+        this.dialogFight = this.add.text(200, 20, '', {
+            fill: '#FFF',
+            fontSize: '20px',
+            fontFamily: 'Comic Sans MS'
+        });
 
+        this.registry.events.on('changedata', this.updateData, this);
     }
 
     update(time, delta) {
@@ -46,15 +56,27 @@ class Hud extends Phaser.Scene {
             this.dialogText.setText(data);
             this.dialogEvent.destroy();
             this.dialogEvent = this.time.addEvent({
-              delay: 3500,
-              callback: resetDialog,
-              callbackScope: this
+                delay: 3500,
+                callback: resetDialog,
+                callbackScope: this
+            });
+        }
+        else if (key === 'dialogFight') {
+            this.dialogFight.setText(data);
+            this.dialogFightEvent.destroy();
+            this.dialogFightEvent = this.time.addEvent({
+                delay: 3500,
+                callback: resetDialogFight,
+                callbackScope: this
             });
         }
     }
 }
 
-function resetDialog()
-{
-  this.dialogText.setText('');
+function resetDialog() {
+    this.dialogText.setText('');
+}
+
+function resetDialogFight() {
+    this.dialogFight.setText('');
 }

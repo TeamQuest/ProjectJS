@@ -6,14 +6,12 @@ var config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: {x: 0, y: 0},
+            gravity: {x: 0, y: 0}
         }
     },
     pixelArt: true,
-    audio: {
-        disableWebAudio: true
-    },
-    scene: [MainMenu, CreateCharacter, Game, Inventory, Hud]
+    scene: [MainMenu, CreateCharacter, Game, BattleScene, UIScene, Inventory, Hud, EndGame]
+
 };
 
 var game = new Phaser.Game(config);

@@ -2,6 +2,7 @@ class Character {
     constructor(name) {
         this.name = name;
         this.speed = 100;
+        this.dmg = 20;
         this.isMoving = false;
         this.destination = {
             x: Constants.PLAYER_SPAWN_X,
@@ -128,6 +129,23 @@ class Character {
         this.prevPosition.x = this.sprite.x;
         this.prevPosition.y = this.sprite.y;
     }
+
+    onMeetEnemy(player, enemyMeet) {
+
+        enemy = enemyMeet;
+        camera.shake(300);
+        player.setVelocity(0);
+
+        this.time.addEvent({
+            delay: 300, callback: () => {
+                this.isMoving = false;
+                // start battle
+                this.scene.switch('BattleScene');
+
+            }, callbackScope: this
+        });
+        enemyMeet.destroy();
+    }
 }
 
 function isBetween(expected, xval, yval, error = 0) {
@@ -139,9 +157,10 @@ function isBetween(expected, xval, yval, error = 0) {
     }
 }
 
+
 // Consider using: `export default Character;` (JS ES6)
 // module.exports = Character;
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^
 //           this doesn't work
 //           Uncaught ReferenceError: module is not defined
-//           at player.js: 42
+//           at hero.js: 42

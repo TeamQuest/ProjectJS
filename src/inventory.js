@@ -85,12 +85,14 @@ class Inventory extends Phaser.Scene {
         if (itemName == "POTION") {
             var localHP = this.registry.get('hp');
             this.registry.set('hp', localHP + 50);
+            player.stats.hp += 50;
             player.removeItem("POTION");
             this.scene.restart();
         }
         if (itemName == "APPLE") {
             var localHP = this.registry.get('hp');
             this.registry.set('hp', localHP + 25);
+            player.stats.hp += 25;
             player.removeItem("APPLE");
             this.scene.restart();
         }
@@ -102,6 +104,7 @@ class Inventory extends Phaser.Scene {
                 var localPW = this.registry.get('power')
 
                 this.registry.set('power', localPW - 30);
+                player.stats.power -= 30;
                 this.scene.restart();
             }
             else {
@@ -110,12 +113,14 @@ class Inventory extends Phaser.Scene {
 
                 var localPW = this.registry.get('power')
                 this.registry.set('power', localPW + 30);
+                player.stats.power += 30;
                 this.scene.restart();
             }
         }
         if (itemName == "POIS_LAG") {
             var localHP = this.registry.get('hp');
             this.registry.set('hp', localHP - 10);
+            player.stats.hp -= 10;
             player.removeItem("POIS_LAG");
             this.scene.restart();
         }
@@ -130,6 +135,8 @@ class Inventory extends Phaser.Scene {
 
                 this.registry.set('power', localPW - 50);
                 this.registry.set('hp', localHP - 50);
+                player.stats.hp -= 50;
+                player.stats.power -= 50;
 
                 this.scene.restart();
             }
@@ -141,6 +148,8 @@ class Inventory extends Phaser.Scene {
 
                 this.registry.set('power', localPW + 50);
                 this.registry.set('hp', localHP + 50);
+                player.stats.hp += 50;
+                player.stats.power += 50;
 
                 this.scene.restart();
             }
